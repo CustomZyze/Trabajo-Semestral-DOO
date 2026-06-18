@@ -38,6 +38,12 @@ public class Partida {
     public void setPuntaje1(int puntaje1) {
         this.puntaje1 = puntaje1;
     }
+    public String getp1(){
+        return p1.getNombre();
+    }
+    public String getp2(){
+        return p2.getNombre();
+    }
 
     public int getPuntaje2() {
         return puntaje2;
