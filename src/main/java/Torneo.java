@@ -1,7 +1,8 @@
+import javax.swing.plaf.synth.SynthOptionPaneUI;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Torneo {
+public class Torneo implements ObservadorPartida{
     private String nombre;
     private Disciplina disciplina;
     private List<Participante> inscritos;
@@ -23,6 +24,9 @@ public class Torneo {
 
     public void generarLlaves() {
         llaves = formato.generarCalendario(this.inscritos);
+        for (Partida partida : llaves) {
+            partida.agregarObservador(this);
+        }
         System.out.println("\nLLaves generadas para el torneo: " + this.nombre);
     }
 
@@ -44,4 +48,49 @@ public class Torneo {
 
     public Formato getFormato() { return formato; }
     public void setFormato(Formato formato) { this.formato = formato; }
+
+    @Override
+    public void actualizar(Partida partida){
+        System.out.println("\nFinalizo el encuentro entre :");
+        System.out.println(partida.getp1() + " vs " + partida.getp2());
+
+        if (partida.getGanador() != null) {
+            System.out.println("Clasifica: " + partida.getGanador().getNombre());
+        }
+
+        if (partidasCompletas()) {
+            continuarTorneo();
+        } else {
+            System.out.println("Aun faltan partidas por terminar en esta ronda");
+        }
+
+    }
+
+    private boolean partidasCompletas(){
+        for (Partida partida: llaves){
+            if (partida.getEstado() != EstadoPartida.TERMINADA){
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void continuarTorneo(){
+        List<Partida> siguienteRonda= formato.avanzarRonda(llaves);
+        if(!siguienteRonda.isEmpty() ){
+            llaves = siguienteRonda;
+            for (Partida partida : llaves){
+                partida.agregarObservador(this);
+            }
+            System.out.println("\n--- Siguiente ronda ---");
+            mostrarLlaves();
+        }else{
+            Participante campeon = llaves.get(0).getGanador();
+            if( campeon != null){
+                System.out.println("\n--- Torneo finalizado ---");
+                System.out.println("CAMPEON: " + campeon.getNombre());
+            }
+
+        }
+    }
 }
