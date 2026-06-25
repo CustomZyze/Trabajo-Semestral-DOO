@@ -1,0 +1,47 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public class Torneo {
+    private String nombre;
+    private Disciplina disciplina;
+    private List<Participante> inscritos;
+    private List<Partida> llaves;
+    private Formato formato;
+
+    public Torneo(String nombre, Disciplina disciplina, Formato formato) {
+        this.nombre = nombre;
+        this.disciplina = disciplina;
+        this.formato = formato;
+        this.inscritos = new ArrayList<>();
+        this.llaves = new ArrayList<>();
+    }
+
+    public void inscribir(Participante p) {
+        this.inscritos.add(p);
+        System.out.println(p.getNombre() + " se ha inscrito en " + this.nombre);
+    }
+
+    public void generarLlaves() {
+        llaves = formato.generarCalendario(this.inscritos);
+        System.out.println("\nLLaves generadas para el torneo: " + this.nombre);
+    }
+
+    public void mostrarLlaves() {
+        System.out.println("--- Lista de Partidas ---");
+        for (Partida p : llaves) {
+            System.out.println(p.getp1() + " vs " + p.getp2() + " | Estado: " + p.getEstado());
+        }
+    }
+
+    public String getNombre() { return nombre; }
+    public void setNombre(String nombre) { this.nombre = nombre; }
+
+    public Disciplina getDisciplina() { return disciplina; }
+    public void setDisciplina(Disciplina disciplina) { this.disciplina = disciplina; }
+
+    public List<Participante> getInscritos() { return inscritos; }
+    public List<Partida> getLlaves() { return llaves; }
+
+    public Formato getFormato() { return formato; }
+    public void setFormato(Formato formato) { this.formato = formato; }
+}
