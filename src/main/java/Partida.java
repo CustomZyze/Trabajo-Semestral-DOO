@@ -18,11 +18,11 @@ public class Partida {
         this.eventos = new GestorEventosPartida();
     }
 
-    public void AgregarObservador(ObservadorPartida observador){
+    public void agregarObservador(ObservadorPartida observador){
         eventos.subscribir(observador);
     }
 
-    public void EliminarObservador(ObservadorPartida observador){
+    public void eliminarObservador(ObservadorPartida observador){
         eventos.desubscribir(observador);
     }
 
