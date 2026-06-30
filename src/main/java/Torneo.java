@@ -1,4 +1,3 @@
-import javax.swing.plaf.synth.SynthOptionPaneUI;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +32,7 @@ public class Torneo implements ObservadorPartida{
     public void mostrarLlaves() {
         System.out.println("--- Lista de Partidas ---");
         for (Partida p : llaves) {
-            System.out.println(p.getp1() + " vs " + p.getp2() + " | Estado: " + p.getEstado());
+            System.out.println(p.getP1().getNombre() + " vs " + p.getP2().getNombre() + " | Estado: " + p.getEstado());
         }
     }
 
@@ -52,7 +51,7 @@ public class Torneo implements ObservadorPartida{
     @Override
     public void actualizar(Partida partida){
         System.out.println("\nFinalizo el encuentro entre :");
-        System.out.println(partida.getp1() + " vs " + partida.getp2());
+        System.out.println(partida.getP1().getNombre() + " vs " + partida.getP2().getNombre());
 
         if (partida.getGanador() != null) {
             System.out.println("Clasifica: " + partida.getGanador().getNombre());
