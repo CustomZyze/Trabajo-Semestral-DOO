@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.List;
+
 public class Partida {
     private Participante p1;
     private Participante p2;
@@ -5,11 +8,22 @@ public class Partida {
     private int puntaje2;
     private Participante ganador;
     private EstadoPartida estado;
+    private GestorEventosPartida eventos;
+
 
     public Partida(Participante p1,Participante p2){
         this.p1 = p1;
         this.p2 = p2;
         estado = EstadoPartida.PENDIENTE;
+        this.eventos = new GestorEventosPartida();
+    }
+
+    public void agregarObservador(ObservadorPartida observador){
+        eventos.subscribir(observador);
+    }
+
+    public void eliminarObservador(ObservadorPartida observador){
+        eventos.desubscribir(observador);
     }
 
     public void registrarResultado(int puntaje1, int puntaje2){
@@ -28,6 +42,8 @@ public class Partida {
         if (ganador != null) {
             System.out.println("Termino partido. \nPuntaje: " + getPuntaje1()+ " a " +getPuntaje2()+ "\nGanador: " + ganador.getNombre());
         }
+
+        eventos.notificar(this);
 
     }
 
