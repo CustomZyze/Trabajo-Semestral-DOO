@@ -60,7 +60,7 @@ public class Torneo implements ObservadorPartida{
         if (partidasCompletas()) {
             continuarTorneo();
         } else {
-            System.out.println("Aun faltan partidas por terminar en esta ronda");
+            System.out.println("Aun faltan partidas por terminar en esta ronda\n");
         }
 
     }
