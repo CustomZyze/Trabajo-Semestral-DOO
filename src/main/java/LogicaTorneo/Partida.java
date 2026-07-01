@@ -1,5 +1,4 @@
-import java.util.ArrayList;
-import java.util.List;
+package LogicaTorneo;
 
 public class Partida {
     private Participante p1;

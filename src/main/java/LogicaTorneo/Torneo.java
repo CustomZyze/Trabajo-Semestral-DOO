@@ -1,7 +1,9 @@
+package LogicaTorneo;
+
 import java.util.ArrayList;
 import java.util.List;
 
-public class Torneo implements ObservadorPartida{
+public class Torneo implements ObservadorPartida {
     private String nombre;
     private Disciplina disciplina;
     private List<Participante> inscritos;
@@ -86,7 +88,7 @@ public class Torneo implements ObservadorPartida{
         }else{
             Participante campeon = llaves.get(0).getGanador();
             if( campeon != null){
-                System.out.println("\n--- Torneo finalizado ---");
+                System.out.println("\n--- LogicaTorneo.Torneo finalizado ---");
                 System.out.println("CAMPEON: " + campeon.getNombre());
             }
 

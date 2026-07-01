@@ -1,4 +1,6 @@
-public class Jugador extends Participante{
+package LogicaTorneo;
+
+public class Jugador extends Participante {
     private String rut;
 
     public Jugador(String nombre, String contacto, String rut) {
@@ -11,6 +13,6 @@ public class Jugador extends Participante{
 
     @Override
     public void verDetalles() {
-        System.out.println("Jugador: " + getNombre() + " (RUT: " + rut + ")");
+        System.out.println("LogicaTorneo.Jugador: " + getNombre() + " (RUT: " + rut + ")");
     }
 }

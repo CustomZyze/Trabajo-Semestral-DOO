@@ -1,4 +1,4 @@
-import javax.swing.text.LabelView;
+package LogicaTorneo;
 
 public abstract class Participante {
     private String nombre;

@@ -1,3 +1,5 @@
+package LogicaTorneo;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,7 +19,7 @@ public class Equipo extends Participante {
     }
     @Override
     public void verDetalles() {
-        System.out.println("Equipo: " + getNombre() + " | Contacto: " + getContacto());
+        System.out.println("LogicaTorneo.Equipo: " + getNombre() + " | Contacto: " + getContacto());
         System.out.println("Roster de jugadores:");
         for (Jugador j : jugadores) {
             System.out.println(" - " + j.getNombre());
