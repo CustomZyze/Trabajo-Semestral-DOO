@@ -54,4 +54,44 @@ public class PanelLlaves extends JPanel {
 
         add(botones, BorderLayout.SOUTH);
     }
+
+    public void actualizar() {
+        panelPartidas.removeAll();
+        if (ventana.getTorneo() == null) return;
+
+        List<Partida> llaves = ventana.getTorneo().getLlaves();
+        for (int i = 0; i < llaves.size(); i++) {
+            Partida p = llaves.get(i);
+            JPanel fila = new JPanel(new FlowLayout(FlowLayout.LEFT));
+            fila.setBackground(i % 2 == 0
+                    ? new Color(35, 35, 50)
+                    : new Color(45, 45, 65));
+
+            String estado = switch (p.getEstado()) {
+                case TERMINADA -> "✓";
+                case EN_CURSO  -> "▶";
+                case CANCELADA -> "✗";
+                default        -> "⏳";
+            };
+
+            String texto = String.format("  %s  %s  vs  %s  |  %d - %d  |  %s",
+                    estado,
+                    p.getP1().getNombre(),
+                    p.getP2().getNombre(),
+                    p.getPuntaje1(),
+                    p.getPuntaje2(),
+                    p.getEstado()
+            );
+
+            JLabel lbl = new JLabel(texto);
+            lbl.setForeground(p.getEstado() == EstadoPartida.TERMINADA
+                    ? new Color(100, 220, 100)
+                    : Color.WHITE);
+            lbl.setFont(new Font("Arial", Font.PLAIN, 14));
+            fila.add(lbl);
+            panelPartidas.add(fila);
+        }
+        panelPartidas.revalidate();
+        panelPartidas.repaint();
+    }
 }
