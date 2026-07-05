@@ -87,19 +87,8 @@ public class LigaSimple implements Formato {
         return mejorRegistro.getParticipante();
     }
 
-    public void mostrarTabla() {
-        System.out.println("\n--- TABLA DE POSICIONES ---");
-
-        for (RegistroLiga registro : tablaPosiciones) {
-            System.out.println(
-                    registro.getParticipante().getNombre()
-                            + " | Pts: " + registro.getPuntos()
-                            + " | PJ: " + registro.getPartidosJugados()
-                            + " | G: " + registro.getGanados()
-                            + " | E: " + registro.getEmpatados()
-                            + " | P: " + registro.getPerdidos()
-            );
-        }
+    public List<RegistroLiga> getTablaPosiciones() {
+        return tablaPosiciones;
     }
 
 

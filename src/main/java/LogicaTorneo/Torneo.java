@@ -48,6 +48,16 @@
         public List<Participante> getInscritos() { return inscritos; }
         public List<Partida> getLlaves() { return llaves; }
 
+        public List<Partida> getPartidasPendientes(){
+            List<Partida> partidasPendientes = new ArrayList<>();
+            for(Partida partida : llaves){
+                if(partida.getEstado() == EstadoPartida.PENDIENTE){
+                    partidasPendientes.add(partida);
+                }
+            }
+            return partidasPendientes;
+        }
+
         public Formato getFormato() { return formato; }
         public void setFormato(Formato formato) { this.formato = formato; }
 
