@@ -54,10 +54,10 @@ public class Partida {
     public void setPuntaje1(int puntaje1) {
         this.puntaje1 = puntaje1;
     }
-    public String getp1(){
+    public String getp1() {
         return p1.getNombre();
     }
-    public String getp2(){
+    public String getp2() {
         return p2.getNombre();
     }
 
@@ -72,7 +72,15 @@ public class Partida {
     public Participante getGanador() {
         return ganador;
     }
+    public Participante getParticipante1() {
+        return p1;
+    }
+
+    public Participante getParticipante2() {
+        return p2;
+    }
     public EstadoPartida getEstado() {
         return estado;
     }
+
 }

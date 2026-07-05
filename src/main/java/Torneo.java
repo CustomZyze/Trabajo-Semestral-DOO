@@ -57,11 +57,33 @@ public class Torneo implements ObservadorPartida{
         if (partida.getGanador() != null) {
             System.out.println("Clasifica: " + partida.getGanador().getNombre());
         }
+        else{
+            System.out.println("Empate");
+        }
+        if (formato instanceof LigaSimple){
+            LigaSimple liga = (LigaSimple) formato;
 
-        if (partidasCompletas()) {
-            continuarTorneo();
-        } else {
-            System.out.println("Aun faltan partidas por terminar en esta ronda");
+            liga.actualizarPuntajes(partida);
+
+            if (partidasCompletas()) {
+                Participante campeon = liga.obtenerCampeon();
+
+                System.out.println("--- Todos los partidos han sido jugados ---");
+
+                if(campeon != null){
+                System.out.println( "Ganador: " + campeon.getNombre() );
+                }
+            }
+            else {
+                System.out.println("Aun faltan partidas por terminar en esta ronda");
+            }
+        }
+        else {
+            if (partidasCompletas()) {
+                continuarTorneo();
+            } else {
+                System.out.println("Aun faltan partidas por terminar en esta ronda.");
+            }
         }
 
     }
