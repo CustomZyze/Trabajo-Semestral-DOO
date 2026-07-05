@@ -109,12 +109,16 @@
                 mostrarLlaves();
             }
             else{
-                Participante campeon = llaves.get(0).getGanador();
-                if( campeon != null){
-                    System.out.println("\n--- Torneo finalizado ---");
-                    System.out.println("CAMPEON: " + campeon.getNombre());
+                if(!llaves.isEmpty()){
+                    Participante campeon = llaves.get(0).getGanador();
+                    if( campeon != null){
+                        System.out.println("\n--- Torneo finalizado ---");
+                        System.out.println("CAMPEON: " + campeon.getNombre());
+                    }
                 }
-
+                else{
+                    System.out.println("--- No hay ganadores ---");
+                }
             }
         }
     }
