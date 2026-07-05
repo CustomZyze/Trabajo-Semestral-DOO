@@ -18,7 +18,7 @@ public class PanelInscritos extends JPanel {
         titulo.setFont(new Font("Arial", Font.BOLD, 22));
         titulo.setForeground(Color.WHITE);
         add(titulo, BorderLayout.NORTH);
-
+        
         JPanel form = new JPanel(new GridBagLayout());
         form.setBackground(new Color(40, 40, 55));
         GridBagConstraints gbc = new GridBagConstraints();
@@ -71,7 +71,7 @@ public class PanelInscritos extends JPanel {
         form.add(btnInscribir, gbc);
 
         add(form, BorderLayout.WEST);
-
+        
         modeloLista = new DefaultListModel<>();
         JList<String> lista = new JList<>(modeloLista);
         lista.setBackground(new Color(30, 30, 45));
@@ -82,7 +82,7 @@ public class PanelInscritos extends JPanel {
                 BorderFactory.createLineBorder(Color.GRAY), "Inscritos",
                 0, 0, null, Color.WHITE));
         add(scroll, BorderLayout.CENTER);
-
+        
         JPanel botonesInf = new JPanel();
         botonesInf.setBackground(new Color(40, 40, 55));
 
