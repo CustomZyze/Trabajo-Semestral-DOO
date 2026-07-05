@@ -86,10 +86,29 @@ public class PanelResultados extends JPanel {
     private void cargarPartidas() {
         cbPartidas.removeAllItems();
         if (ventana.getTorneo() == null) return;
-        for (Partida p : ventana.getTorneo().getLlaves()) {
-            if (p.getEstado() == EstadoPartida.PENDIENTE) {
-                cbPartidas.addItem(p.getP1().getNombre() + " vs " + p.getP2().getNombre());
-            }
+        for (Partida p : ventana.getTorneo().getPartidasPendientes()) {
+            cbPartidas.addItem(p.getP1().getNombre() + " vs " + p.getP2().getNombre());
+        }
+    }
+
+    private void registrar() {
+        int idx = cbPartidas.getSelectedIndex();
+        if (idx < 0) { lblMensaje.setText("Selecciona una partida."); return; }
+
+        try {
+            int p1 = Integer.parseInt(txtPuntaje1.getText().trim());
+            int p2 = Integer.parseInt(txtPuntaje2.getText().trim());
+
+            // solo llama al modelo, sin lógica de filtrado aquí
+            ventana.getTorneo().getPartidasPendientes().get(idx).registrarResultado(p1, p2);
+
+            lblMensaje.setText("Resultado registrado.");
+            txtPuntaje1.setText("");
+            txtPuntaje2.setText("");
+            cargarPartidas();
+        } catch (NumberFormatException ex) {
+            lblMensaje.setText("Ingresa puntajes válidos.");
+            lblMensaje.setForeground(Color.RED);
         }
     }
 }
