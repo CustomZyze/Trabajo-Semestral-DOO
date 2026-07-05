@@ -27,4 +27,18 @@ public class Ventana extends JFrame {
 
         cardLayout.show(contenedor, "MENU");
     }
+    public void mostrarPanel(String nombre) {
+        cardLayout.show(contenedor, nombre);
+    }
+
+    public void agregarPanel(JPanel panel, String nombre) {
+        contenedor.add(panel, nombre);
+    }
+
+    public Torneo getTorneo() { return torneo; }
+    public void setTorneo(Torneo torneo) { this.torneo = torneo; }
+
+    public static void main(String[] args) {
+        new Ventana();
+    }
 }
