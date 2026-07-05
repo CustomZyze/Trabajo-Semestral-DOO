@@ -1,5 +1,6 @@
     package  LogicaTorneo;
 
+    import java.net.SocketTimeoutException;
     import java.util.ArrayList;
     import java.util.List;
 
@@ -56,36 +57,20 @@
             System.out.println( partida.getP1().getNombre()  + " vs " + partida.getP2().getNombre());
 
             if (partida.getGanador() != null) {
-                System.out.println("Clasifica: " + partida.getGanador().getNombre());
+                System.out.println("Ganador: " + partida.getGanador().getNombre());
             }
             else{
                 System.out.println("Empate");
             }
-            if (formato instanceof LigaSimple){
-                LigaSimple liga = (LigaSimple) formato;
 
-                liga.actualizarPuntajes(partida);
+            formato.actualizarResultado(partida);
 
-                if (partidasCompletas()) {
-                    Participante campeon = liga.obtenerCampeon();
-
-                    System.out.println("--- Todos los partidos han sido jugados ---");
-
-                    if(campeon != null){
-                    System.out.println( "Ganador: " + campeon.getNombre() );
-                    }
-                }
-                else {
-                    System.out.println("Aun faltan partidas por terminar en esta ronda");
-                }
-            }
-            else {
-                if (partidasCompletas()) {
+            if (partidasCompletas()) {
                     continuarTorneo();
-                } else {
+            } else {
                     System.out.println("Aun faltan partidas por terminar en esta ronda.");
-                }
             }
+
 
         }
 
@@ -102,6 +87,7 @@
             List<Partida> siguienteRonda= formato.avanzarRonda(llaves);
             if(!siguienteRonda.isEmpty() ){
                 llaves = siguienteRonda;
+
                 for (Partida partida : llaves){
                     partida.agregarObservador(this);
                 }
@@ -109,15 +95,12 @@
                 mostrarLlaves();
             }
             else{
-                if(!llaves.isEmpty()){
-                    Participante campeon = llaves.get(0).getGanador();
-                    if( campeon != null){
-                        System.out.println("\n--- Torneo finalizado ---");
-                        System.out.println("CAMPEON: " + campeon.getNombre());
-                    }
-                }
-                else{
-                    System.out.println("--- No hay ganadores ---");
+               Participante campeon = formato.obtenerCampeon(llaves);
+
+               if(campeon != null){
+                   System.out.println("\n --- Fin Torneo --- ");
+
+                   System.out.println("\n Campeon:" + campeon.getNombre() );
                 }
             }
         }

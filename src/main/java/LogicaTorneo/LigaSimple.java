@@ -41,7 +41,9 @@ public class LigaSimple implements Formato {
         return null;
     }
 
-    public void actualizarPuntajes(Partida partida){
+
+    @Override
+    public void actualizarResultado(Partida partida){
         RegistroLiga registro1 = buscarRegistro(partida.getP1());
         RegistroLiga registro2 = buscarRegistro(partida.getP2());
 
@@ -67,7 +69,9 @@ public class LigaSimple implements Formato {
 
     }
 
-    public Participante obtenerCampeon() {
+    @Override
+    public Participante obtenerCampeon(List<Partida> llaves) {
+
         if (tablaPosiciones.isEmpty()) {
             return null;
         }
