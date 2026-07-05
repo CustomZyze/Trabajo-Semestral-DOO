@@ -1,6 +1,8 @@
+package LogicaTorneo;
+
 import java.util.ArrayList;
 import java.util.List;
-public class ElimDirecta implements Formato{
+public class ElimDirecta implements Formato {
     @Override
     public List<Partida> generarCalendario(List<Participante> participantes){
         List<Partida> ronda = new ArrayList<>();

@@ -1,8 +1,9 @@
+package LogicaTorneo;
+
 import java.util.ArrayList;
 import java.util.List;
 
-
-public class LigaSimple implements Formato{
+public class LigaSimple implements Formato {
 
     private List<RegistroLiga> tablaPosiciones = new ArrayList<>();
 
@@ -18,7 +19,7 @@ public class LigaSimple implements Formato{
 
         for (int i = 0; i<participantes.size(); i++){
             for (int j = i+1 ; j<participantes.size(); j++){
-                    ronda.add(new Partida(participantes.get(i), participantes.get(j)));
+                ronda.add(new Partida(participantes.get(i), participantes.get(j)));
             }
         }
         return ronda;
@@ -27,7 +28,7 @@ public class LigaSimple implements Formato{
 
     @Override
     public List<Partida> avanzarRonda(List<Partida> rondaActual){
-       return new ArrayList<>();
+        return new ArrayList<>();
     }
 
     private RegistroLiga buscarRegistro(Participante participante){
@@ -53,7 +54,7 @@ public class LigaSimple implements Formato{
             registro2.registrarDerrota();
         }
 
-        if(partida.getGanador() == partida.getParticipante2()){
+        else if(partida.getGanador() == partida.getParticipante2()){
             registro1.registrarDerrota();
             registro2.registrarVictoria();
         }
@@ -80,6 +81,21 @@ public class LigaSimple implements Formato{
         }
 
         return mejorRegistro.getParticipante();
+    }
+
+    public void mostrarTabla() {
+        System.out.println("\n--- TABLA DE POSICIONES ---");
+
+        for (RegistroLiga registro : tablaPosiciones) {
+            System.out.println(
+                    registro.getParticipante().getNombre()
+                            + " | Pts: " + registro.getPuntos()
+                            + " | PJ: " + registro.getPartidosJugados()
+                            + " | G: " + registro.getGanados()
+                            + " | E: " + registro.getEmpatados()
+                            + " | P: " + registro.getPerdidos()
+            );
+        }
     }
 
 

@@ -1,3 +1,5 @@
+package LogicaTorneo;
+
 public enum Disciplina {
     FUTBOL,
     BASKETBALL,

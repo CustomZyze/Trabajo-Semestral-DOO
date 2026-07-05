@@ -1,3 +1,5 @@
+package LogicaTorneo;
+
 import java.util.List;
 
 public interface Formato {

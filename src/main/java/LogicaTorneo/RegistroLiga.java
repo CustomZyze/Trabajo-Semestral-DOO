@@ -1,3 +1,4 @@
+package LogicaTorneo;
 public class RegistroLiga {
     private Participante participante;
     private int puntos;
@@ -23,7 +24,6 @@ public class RegistroLiga {
     public void registrarDerrota(){
         partidosJugados++;
         perdidos++;
-        puntos += 0;
     }
 
     public void registrarEmpate(){
