@@ -46,6 +46,12 @@ public class PanelCrearTorneo extends JPanel {
         gbc.gridx = 0; gbc.gridy = 4; gbc.gridwidth = 2;
         add(lblMensaje, gbc);
 
+        JButton btnVolver = new JButton("Volver");
+        btnVolver.setFocusPainted(false);
+        btnVolver.addActionListener(e -> ventana.mostrarPanel("MENU"));
+        gbc.gridy = 5; gbc.gridwidth = 1; gbc.gridx = 0;
+        add(btnVolver, gbc);
+
         JButton btnCrear = new JButton("Crear");
         btnCrear.setBackground(new Color(70, 130, 180));
         btnCrear.setForeground(Color.WHITE);
@@ -75,14 +81,8 @@ public class PanelCrearTorneo extends JPanel {
             lblMensaje.setForeground(new Color(100, 220, 100));
             ventana.mostrarPanel("INSCRITOS");
         });
-        gbc.gridx = 0; gbc.gridy = 5; gbc.gridwidth = 1;
-        add(btnCrear, gbc);
-
-        JButton btnVolver = new JButton("Volver");
-        btnVolver.setFocusPainted(false);
-        btnVolver.addActionListener(e -> ventana.mostrarPanel("MENU"));
         gbc.gridx = 1;
-        add(btnVolver, gbc);
+        add(btnCrear, gbc);
     }
 
     private JLabel etiqueta(String texto) {
