@@ -30,7 +30,7 @@ public class ElimDoble implements Formato {
         for (Partida p : rondaActual) {
             if (p.getEstado() == EstadoPartida.TERMINADA && p.getGanador() != null) {
                 Participante ganador = p.getGanador();
-                Participante perdedor = (p.getParticipante1() == ganador) ? p.getParticipante2() : p.getParticipante1();
+                Participante perdedor = (p.getP1() == ganador) ? p.getP2() : p.getP1();
 
                 if (llaveWinners.contains(ganador) && llaveWinners.contains(perdedor)) {
                     ganadoresEsteTurno.add(ganador);

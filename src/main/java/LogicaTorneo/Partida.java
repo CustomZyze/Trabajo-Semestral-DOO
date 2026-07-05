@@ -56,17 +56,11 @@ public class Partida {
     public void setPuntaje1(int puntaje1) {
         this.puntaje1 = puntaje1;
     }
-    public String getp1(){
-        return p1.getNombre();
-    }
-    public String getp2(){
-        return p2.getNombre();
-    }
-    public Participante getParticipante1() {
+    public Participante getP1() {
         return p1;
     }
 
-    public Participante getParticipante2() {
+    public Participante getP2() {
         return p2;
     }
     public int getPuntaje2() {

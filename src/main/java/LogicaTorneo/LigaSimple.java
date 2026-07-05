@@ -42,19 +42,19 @@ public class LigaSimple implements Formato {
     }
 
     public void actualizarPuntajes(Partida partida){
-        RegistroLiga registro1 = buscarRegistro(partida.getParticipante1());
-        RegistroLiga registro2 = buscarRegistro(partida.getParticipante2());
+        RegistroLiga registro1 = buscarRegistro(partida.getP1());
+        RegistroLiga registro2 = buscarRegistro(partida.getP2());
 
         if (registro1 == null || registro2 == null){
             return;
         }
 
-        if(partida.getGanador() == partida.getParticipante1()){
+        if(partida.getGanador() == partida.getP1()){
             registro1.registrarVictoria();
             registro2.registrarDerrota();
         }
 
-        else if(partida.getGanador() == partida.getParticipante2()){
+        else if(partida.getGanador() == partida.getP2()){
             registro1.registrarDerrota();
             registro2.registrarVictoria();
         }
