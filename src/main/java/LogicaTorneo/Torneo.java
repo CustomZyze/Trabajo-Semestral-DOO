@@ -1,97 +1,116 @@
-package LogicaTorneo;
+    package  LogicaTorneo;
 
-import java.util.ArrayList;
-import java.util.List;
+    import java.util.ArrayList;
+    import java.util.List;
 
-public class Torneo implements ObservadorPartida {
-    private String nombre;
-    private Disciplina disciplina;
-    private List<Participante> inscritos;
-    private List<Partida> llaves;
-    private Formato formato;
+    public class Torneo implements ObservadorPartida{
+        private String nombre;
+        private Disciplina disciplina;
+        private List<Participante> inscritos;
+        private List<Partida> llaves;
+        private Formato formato;
 
-    public Torneo(String nombre, Disciplina disciplina, Formato formato) {
-        this.nombre = nombre;
-        this.disciplina = disciplina;
-        this.formato = formato;
-        this.inscritos = new ArrayList<>();
-        this.llaves = new ArrayList<>();
-    }
-
-    public void inscribir(Participante p) {
-        this.inscritos.add(p);
-        System.out.println(p.getNombre() + " se ha inscrito en " + this.nombre);
-    }
-
-    public void generarLlaves() {
-        llaves = formato.generarCalendario(this.inscritos);
-        for (Partida partida : llaves) {
-            partida.agregarObservador(this);
-        }
-        System.out.println("\nLLaves generadas para el torneo: " + this.nombre);
-    }
-
-    public void mostrarLlaves() {
-        System.out.println("--- Lista de Partidas ---");
-        for (Partida p : llaves) {
-            System.out.println(p.getP1().getNombre() + " vs " + p.getP2().getNombre() + " | Estado: " + p.getEstado());
-        }
-    }
-
-    public String getNombre() { return nombre; }
-    public void setNombre(String nombre) { this.nombre = nombre; }
-
-    public Disciplina getDisciplina() { return disciplina; }
-    public void setDisciplina(Disciplina disciplina) { this.disciplina = disciplina; }
-
-    public List<Participante> getInscritos() { return inscritos; }
-    public List<Partida> getLlaves() { return llaves; }
-
-    public Formato getFormato() { return formato; }
-    public void setFormato(Formato formato) { this.formato = formato; }
-
-    @Override
-    public void actualizar(Partida partida){
-        System.out.println("\nFinalizo el encuentro entre :");
-        System.out.println(partida.getP1().getNombre() + " vs " + partida.getP2().getNombre());
-
-        if (partida.getGanador() != null) {
-            System.out.println("Clasifica: " + partida.getGanador().getNombre());
+        public Torneo(String nombre, Disciplina disciplina, Formato formato) {
+            this.nombre = nombre;
+            this.disciplina = disciplina;
+            this.formato = formato;
+            this.inscritos = new ArrayList<>();
+            this.llaves = new ArrayList<>();
         }
 
-        if (partidasCompletas()) {
-            continuarTorneo();
-        } else {
-            System.out.println("Aun faltan partidas por terminar en esta ronda\n");
+        public void inscribir(Participante p) {
+            this.inscritos.add(p);
+            System.out.println(p.getNombre() + " se ha inscrito en " + this.nombre);
         }
 
-    }
-
-    private boolean partidasCompletas(){
-        for (Partida partida: llaves){
-            if (partida.getEstado() != EstadoPartida.TERMINADA){
-                return false;
-            }
-        }
-        return true;
-    }
-
-    private void continuarTorneo(){
-        List<Partida> siguienteRonda= formato.avanzarRonda(llaves);
-        if(!siguienteRonda.isEmpty() ){
-            llaves = siguienteRonda;
-            for (Partida partida : llaves){
+        public void generarLlaves() {
+            llaves = formato.generarCalendario(this.inscritos);
+            for (Partida partida : llaves) {
                 partida.agregarObservador(this);
             }
-            System.out.println("\n--- Siguiente ronda ---");
-            mostrarLlaves();
-        }else{
-            Participante campeon = llaves.get(0).getGanador();
-            if( campeon != null){
-                System.out.println("\n--- LogicaTorneo.Torneo finalizado ---");
-                System.out.println("CAMPEON: " + campeon.getNombre());
+            System.out.println("\nLLaves generadas para el torneo: " + this.nombre);
+        }
+
+        public void mostrarLlaves() {
+            System.out.println("--- Lista de Partidas ---");
+            for (Partida p : llaves) {
+                System.out.println(p.getP1().getNombre() + " vs " + p.getP2().getNombre() + " | Estado: " + p.getEstado());
+            }
+        }
+
+        public String getNombre() { return nombre; }
+        public void setNombre(String nombre) { this.nombre = nombre; }
+
+        public Disciplina getDisciplina() { return disciplina; }
+        public void setDisciplina(Disciplina disciplina) { this.disciplina = disciplina; }
+
+        public List<Participante> getInscritos() { return inscritos; }
+        public List<Partida> getLlaves() { return llaves; }
+
+        public List<Partida> getPartidasPendientes(){
+            List<Partida> partidasPendientes = new ArrayList<>();
+            for(Partida partida : llaves){
+                if(partida.getEstado() == EstadoPartida.PENDIENTE){
+                    partidasPendientes.add(partida);
+                }
+            }
+            return partidasPendientes;
+        }
+
+        public Formato getFormato() { return formato; }
+        public void setFormato(Formato formato) { this.formato = formato; }
+
+        @Override
+        public void actualizar(Partida partida){
+            System.out.println("\nFinalizo el encuentro entre :");
+            System.out.println( partida.getP1().getNombre()  + " vs " + partida.getP2().getNombre());
+
+            if (partida.getGanador() != null) {
+                System.out.println("Ganador: " + partida.getGanador().getNombre());
+            }
+            else{
+                System.out.println("Empate");
             }
 
+            formato.actualizarResultado(partida);
+
+            if (partidasCompletas()) {
+                    continuarTorneo();
+            } else {
+                    System.out.println("Aun faltan partidas por terminar en esta ronda.");
+            }
+
+
+        }
+
+        private boolean partidasCompletas(){
+            for (Partida partida: llaves){
+                if (partida.getEstado() != EstadoPartida.TERMINADA){
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        private void continuarTorneo(){
+            List<Partida> siguienteRonda= formato.avanzarRonda(llaves);
+            if(!siguienteRonda.isEmpty() ){
+                llaves = siguienteRonda;
+
+                for (Partida partida : llaves){
+                    partida.agregarObservador(this);
+                }
+                System.out.println("\n--- Siguiente ronda ---");
+                mostrarLlaves();
+            }
+            else{
+               Participante campeon = formato.obtenerCampeon(llaves);
+
+               if(campeon != null){
+                   System.out.println("\n --- Fin Torneo --- ");
+
+                   System.out.println("\n Campeon:" + campeon.getNombre() );
+                }
+            }
         }
     }
-}

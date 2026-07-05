@@ -1,5 +1,8 @@
 package LogicaTorneo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Partida {
     private Participante p1;
     private Participante p2;
@@ -53,11 +56,13 @@ public class Partida {
     public void setPuntaje1(int puntaje1) {
         this.puntaje1 = puntaje1;
     }
-    public Participante getP1(){
-        return p1;}
-    public Participante getP2(){
-        return p2;}
+    public Participante getP1() {
+        return p1;
+    }
 
+    public Participante getP2() {
+        return p2;
+    }
     public int getPuntaje2() {
         return puntaje2;
     }

@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class GestorEventosPartida {
-    public List<ObservadorPartida> observadores;
+    private List<ObservadorPartida> observadores;
 
     public GestorEventosPartida(){
         observadores = new ArrayList<>();

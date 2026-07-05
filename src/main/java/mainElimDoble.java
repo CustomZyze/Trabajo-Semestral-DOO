@@ -3,7 +3,7 @@ import LogicaTorneo.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class main {
+public class mainElimDoble {
     public static void main(String[] args) {
         System.out.println("\nPrueba Elim Doble: ");
 
@@ -21,7 +21,6 @@ public class main {
         torneo.inscribir(p4);
 
         torneo.generarLlaves();
-
 
         System.out.println("\nResultados ronda 1:");
         List<Partida> ronda1 = new ArrayList<>(torneo.getLlaves());
@@ -47,3 +46,4 @@ public class main {
         System.out.println("\nFIN");
     }
 }
+

@@ -74,4 +74,17 @@ public class ElimDoble implements Formato {
         }
         return sigRonda;
     }
+
+    @Override
+    public void actualizarResultado(Partida partida) {
+
+    }
+
+    @Override
+    public Participante obtenerCampeon(List<Partida> rondaActual) {
+        if (!rondaActual.isEmpty() && rondaActual.get(0).getGanador() != null) {
+            return rondaActual.get(0).getGanador();
+        }
+        return null;
+    }
 }
