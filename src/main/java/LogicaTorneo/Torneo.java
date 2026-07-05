@@ -1,6 +1,5 @@
     package  LogicaTorneo;
 
-    import java.net.SocketTimeoutException;
     import java.util.ArrayList;
     import java.util.List;
 
