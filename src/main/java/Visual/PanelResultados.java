@@ -111,4 +111,11 @@ public class PanelResultados extends JPanel {
             lblMensaje.setForeground(Color.RED);
         }
     }
+
+    private JLabel etiqueta(String texto) {
+        JLabel lbl = new JLabel(texto);
+        lbl.setForeground(Color.WHITE);
+        lbl.setFont(new Font("Arial", Font.PLAIN, 14));
+        return lbl;
+    }
 }
