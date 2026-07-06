@@ -95,10 +95,24 @@ public class PanelInscritos extends JPanel {
                 lblMensaje.setText("Mínimo 2 participantes.");
                 return;
             }
+            for (Participante p : ventana.getTorneo().getInscritos()) {
+                if (!p.estaListoParaJugar()) {
+                    lblMensaje.setText("Error: El participante '" + p.getNombre() + "' no está listo.");
+                    lblMensaje.setForeground(Color.RED);
+                    return;
+                }
+            }
             ventana.getTorneo().generarLlaves();
             ventana.mostrarPanel("LLAVES");
         });
         botonesInf.add(btnGenerar);
+
+        JButton btnGestionar = new JButton("Gestionar Equipos");
+        btnGestionar.setBackground(new Color(180, 100, 50));
+        btnGestionar.setForeground(Color.WHITE);
+        btnGestionar.setFocusPainted(false);
+        btnGestionar.addActionListener(e -> ventana.mostrarPanel("GESTION_EQUIPOS"));
+        botonesInf.add(btnGestionar);
 
         JButton btnVolver = new JButton("Volver");
         btnVolver.setFocusPainted(false);

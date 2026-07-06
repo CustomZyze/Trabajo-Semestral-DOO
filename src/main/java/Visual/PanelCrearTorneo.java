@@ -76,6 +76,7 @@ public class PanelCrearTorneo extends JPanel {
             ventana.agregarPanel(new PanelLlaves(ventana), "LLAVES");
             ventana.agregarPanel(new PanelResultados(ventana), "RESULTADOS");
             ventana.agregarPanel(new PanelClasificacion(ventana), "CLASIFICACION");
+            ventana.agregarPanel(new PanelGestionEquipos(ventana), "GESTION_EQUIPOS");
 
             lblMensaje.setText("Torneo '" + nombre + "' creado.");
             lblMensaje.setForeground(new Color(100, 220, 100));
