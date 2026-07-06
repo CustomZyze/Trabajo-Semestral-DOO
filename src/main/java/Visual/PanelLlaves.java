@@ -63,15 +63,16 @@ public class PanelLlaves extends JPanel {
         for (int i = 0; i < llaves.size(); i++) {
             Partida p = llaves.get(i);
             JPanel fila = new JPanel(new FlowLayout(FlowLayout.LEFT));
+            fila.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
             fila.setBackground(i % 2 == 0
                     ? new Color(35, 35, 50)
                     : new Color(45, 45, 65));
 
             String estado = switch (p.getEstado()) {
-                case TERMINADA -> "✓";
-                case EN_CURSO  -> "▶";
-                case CANCELADA -> "✗";
-                default        -> "⏳";
+                case TERMINADA -> "";
+                case EN_CURSO  -> "";
+                case CANCELADA -> "";
+                default        -> "";
             };
 
             String texto = String.format("  %s  %s  vs  %s  |  %d - %d  |  %s",
@@ -90,6 +91,22 @@ public class PanelLlaves extends JPanel {
             lbl.setFont(new Font("Arial", Font.PLAIN, 14));
             fila.add(lbl);
             panelPartidas.add(fila);
+        }
+
+        if (ventana.getTorneo().torneoFinalizado()) {
+            Participante campeon = ventana.getTorneo().getCampeon();
+            if (campeon != null) {
+                JLabel lblCampeon = new JLabel("¡CAMPEÓN: " + campeon.getNombre().toUpperCase() + "!", SwingConstants.CENTER);
+                lblCampeon.setFont(new Font("Arial", Font.BOLD, 26));
+                lblCampeon.setForeground(new Color(255, 215, 0)); // Color dorado
+                lblCampeon.setBorder(BorderFactory.createEmptyBorder(30, 0, 20, 0));
+
+                JPanel panelCampeon = new JPanel(new BorderLayout());
+                panelCampeon.setBackground(new Color(30, 30, 45));
+                panelCampeon.add(lblCampeon, BorderLayout.CENTER);
+
+                panelPartidas.add(panelCampeon);
+            }
         }
         panelPartidas.revalidate();
         panelPartidas.repaint();

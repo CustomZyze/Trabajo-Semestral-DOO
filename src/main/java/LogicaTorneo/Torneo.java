@@ -57,6 +57,22 @@
             return partidasPendientes;
         }
 
+        public Participante getCampeon(){
+            return formato.obtenerCampeon(llaves);
+        }
+
+        public boolean torneoFinalizado(){
+            if (llaves.isEmpty()) {
+                return false;
+            }
+
+            for (Partida p : llaves) {
+                if (p.getEstado() != EstadoPartida.TERMINADA) {
+                    return false; // Si faltan, aun no terminamos
+                }
+            }
+            return formato.avanzarRonda(llaves).isEmpty();
+        }
         public Formato getFormato() { return formato; }
         public void setFormato(Formato formato) { this.formato = formato; }
 
