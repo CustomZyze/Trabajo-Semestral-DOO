@@ -17,9 +17,15 @@ public class Equipo extends Participante {
     public List<Jugador> getJugadores() {
         return jugadores;
     }
+
+    @Override
+    public boolean estaListoParaJugar(){
+        return !jugadores.isEmpty();
+    };
+
     @Override
     public void verDetalles() {
-        System.out.println("LogicaTorneo.Equipo: " + getNombre() + " | Contacto: " + getContacto());
+        System.out.println("Equipo: " + getNombre() + " | Contacto: " + getContacto());
         System.out.println("Roster de jugadores:");
         for (Jugador j : jugadores) {
             System.out.println(" - " + j.getNombre());

@@ -14,6 +14,7 @@ public abstract class Participante {
 
     public String getContacto() { return contacto; }
     public void setContacto(String contacto) { this.contacto = contacto; }
+    public abstract boolean estaListoParaJugar();
 
     public abstract void verDetalles();
 }

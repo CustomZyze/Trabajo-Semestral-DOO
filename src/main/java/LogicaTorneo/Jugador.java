@@ -10,9 +10,13 @@ public class Jugador extends Participante {
 
     public String getRut() { return rut; }
     public void setRut(String rut) { this.rut = rut; }
+    @Override
+    public boolean estaListoParaJugar(){
+        return true;
+    };
 
     @Override
     public void verDetalles() {
-        System.out.println("LogicaTorneo.Jugador: " + getNombre() + " (RUT: " + rut + ")");
+        System.out.println("Jugador: " + getNombre() + " (RUT: " + rut + ")");
     }
 }
