@@ -55,14 +55,12 @@ public class PanelClasificacion extends JPanel {
         }
 
         Formato fmt = ventana.getTorneo().getFormato();
-        if (!(fmt instanceof LigaSimple)) {
-            mostrarMensaje("La clasificación solo está disponible para Liga Simple.");
+        if (!fmt.tieneClasificacion()) {
+            mostrarMensaje("La clasificación solo está disponible para formatos de Liga.");
             return;
         }
 
-        LigaSimple liga = (LigaSimple) fmt;
-        List<RegistroLiga> registros = liga.getTablaPosiciones();
-
+        List<RegistroLiga> registros = fmt.getTablaPosiciones();
         if (registros.isEmpty()) {
             mostrarMensaje("No hay registros aún.");
             return;

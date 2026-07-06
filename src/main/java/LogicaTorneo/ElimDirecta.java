@@ -42,4 +42,14 @@ public class ElimDirecta implements Formato {
         }
         return null;
     }
+
+    @Override
+    public boolean tieneClasificacion() {
+        return false;
+    }
+
+    @Override
+    public List<RegistroLiga> getTablaPosiciones() {
+        return List.of();
+    }
 }

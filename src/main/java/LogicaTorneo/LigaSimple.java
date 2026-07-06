@@ -87,10 +87,13 @@ public class LigaSimple implements Formato {
         return mejorRegistro.getParticipante();
     }
 
+    @Override
+    public boolean tieneClasificacion() {
+        return true;
+    }
+    @Override
     public List<RegistroLiga> getTablaPosiciones() {
         return tablaPosiciones;
     }
-
-
 
 }
