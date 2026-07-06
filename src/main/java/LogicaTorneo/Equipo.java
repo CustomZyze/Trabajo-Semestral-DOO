@@ -11,8 +11,15 @@ public class Equipo extends Participante {
         this.jugadores = new ArrayList<>();
     }
 
-    public void agregarJugador(Jugador jugador) {
-        this.jugadores.add(jugador);
+    @Override
+    public boolean aceptaIntegrantes() {
+        return true;
+    }
+
+    @Override
+    public void agregarIntegrante(Participante p) {
+
+        this.jugadores.add((Jugador) p);
     }
     public List<Jugador> getJugadores() {
         return jugadores;

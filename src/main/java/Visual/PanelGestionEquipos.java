@@ -86,10 +86,11 @@ public class PanelGestionEquipos extends JPanel {
         if (ventana.getTorneo() == null) return;
 
         for (Participante p : ventana.getTorneo().getInscritos()) {
-            if (p instanceof Equipo) {
+            if (p.aceptaIntegrantes()) {
                 cbEquipos.addItem(p.getNombre());
             }
         }
+
         if (cbEquipos.getItemCount() == 0) {
             lblMensaje.setText("No hay equipos inscritos.");
             lblMensaje.setForeground(Color.RED);
@@ -118,18 +119,19 @@ public class PanelGestionEquipos extends JPanel {
         }
 
         String nombreEquipoSeleccionado = (String) cbEquipos.getSelectedItem();
-        Equipo equipoDestino = null;
+        Participante equipoDestino = null;
 
         for (Participante p : ventana.getTorneo().getInscritos()) {
-            if (p instanceof Equipo && p.getNombre().equals(nombreEquipoSeleccionado)) {
-                equipoDestino = (Equipo) p;
+
+            if (p.aceptaIntegrantes() && p.getNombre().equals(nombreEquipoSeleccionado)) {
+                equipoDestino = p;
                 break;
             }
         }
 
         if (equipoDestino != null) {
             Jugador nuevoJugador = new Jugador(nombre, contacto, rut);
-            equipoDestino.agregarJugador(nuevoJugador);
+            equipoDestino.agregarIntegrante(nuevoJugador);
 
             lblMensaje.setText("Jugador " + nombre + " añadido a " + equipoDestino.getNombre());
             lblMensaje.setForeground(new Color(100, 220, 100));
