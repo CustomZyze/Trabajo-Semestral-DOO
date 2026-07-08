@@ -108,6 +108,13 @@
             return true;
         }
 
+        public void registrarResultadosPartida(Partida partida, int puntaje1,int puntaje2 ){
+            if (puntaje1 == puntaje2 && !formato.hayEmpates()){
+                throw new IllegalArgumentException("formato no permite empates");
+            }
+            partida.registrarResultado(puntaje1,puntaje2);
+        }
+
         private void continuarTorneo(){
             List<Partida> siguienteRonda= formato.avanzarRonda(llaves);
             if(!siguienteRonda.isEmpty() ){

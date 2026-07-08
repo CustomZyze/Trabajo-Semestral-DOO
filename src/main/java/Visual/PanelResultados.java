@@ -98,7 +98,11 @@ public class PanelResultados extends JPanel {
             int p1 = Integer.parseInt(txtPuntaje1.getText().trim());
             int p2 = Integer.parseInt(txtPuntaje2.getText().trim());
 
-            ventana.getTorneo().getPartidasPendientes().get(idx).registrarResultado(p1, p2);
+            Partida partidaActual = ventana.getTorneo().getPartidasPendientes().get(idx);
+
+            ventana.getTorneo().registrarResultadosPartida(partidaActual, p1, p2);
+
+
 
             lblMensaje.setText("Resultado registrado.");
             txtPuntaje1.setText("");
@@ -107,7 +111,11 @@ public class PanelResultados extends JPanel {
         } catch (NumberFormatException ex) {
             lblMensaje.setText("Ingresa puntajes válidos.");
             lblMensaje.setForeground(Color.RED);
+        } catch (IllegalArgumentException ex){
+            lblMensaje.setText( ex.getMessage());
+            lblMensaje.setForeground(Color.RED);
         }
+
     }
 
     private JLabel etiqueta(String texto) {

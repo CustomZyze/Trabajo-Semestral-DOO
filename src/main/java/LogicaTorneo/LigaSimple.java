@@ -96,4 +96,9 @@ public class LigaSimple implements Formato {
         return tablaPosiciones;
     }
 
+    @Override
+    public boolean hayEmpates(){
+        return true;
+    }
+
 }

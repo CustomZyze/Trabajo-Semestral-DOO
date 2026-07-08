@@ -14,4 +14,8 @@ public interface Formato {
     public default List<RegistroLiga> getTablaPosiciones() {
         return new ArrayList<>(); // Retorna lista vacía por defecto
     }
+    public default boolean hayEmpates(){
+
+        return false;
+    }
 }
