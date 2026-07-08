@@ -1,10 +1,17 @@
 package LogicaTorneo;
 
+import LogicaTorneo.Excepciones.NoInfoException;
+
 public class Jugador extends Participante {
     private String rut;
 
     public Jugador(String nombre, String contacto, String rut) {
         super(nombre, contacto);
+
+        if(rut == null || rut.isBlank()){
+            throw new NoInfoException("Rut no encontrado");
+        }
+
         this.rut = rut;
     }
 

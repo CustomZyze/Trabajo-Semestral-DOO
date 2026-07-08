@@ -1,10 +1,21 @@
 package LogicaTorneo;
 
+import LogicaTorneo.Excepciones.NoInfoException;
+
 public abstract class Participante {
     private String nombre;
     private String contacto;
 
     public Participante(String nombre, String contacto) {
+
+        if(nombre == null || nombre.isBlank()){
+            throw new NoInfoException("Nombre no detectado");
+        }
+
+        if(contacto == null || contacto.isBlank()){
+            throw new NoInfoException("Contacto no encontrado");
+        }
+
         this.nombre = nombre;
         this.contacto = contacto;
     }

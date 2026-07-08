@@ -1,6 +1,9 @@
 package LogicaTorneo;
 
 
+import LogicaTorneo.Excepciones.DuplicadoException;
+import LogicaTorneo.Excepciones.EquipoLlenoException;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,9 +24,17 @@ public class Equipo extends Participante {
 
     @Override
     public void agregarIntegrante(Participante p) {
+
         if(jugadores.size() >= limiteMaximo){
-            throw new IllegalArgumentException("Supera cantidad max jugadores aceptados");
+            throw new EquipoLlenoException(limiteMaximo);
         }
+
+        for(Jugador jugador : jugadores ){
+            if (jugador.getNombre().equalsIgnoreCase(p.getNombre())){
+                throw new DuplicadoException(jugador.getNombre());
+            }
+        }
+
         this.jugadores.add((Jugador) p);
 
     }

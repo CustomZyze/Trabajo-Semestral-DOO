@@ -1,5 +1,7 @@
     package  LogicaTorneo;
 
+    import LogicaTorneo.Excepciones.*;
+
     import java.util.ArrayList;
     import java.util.List;
 
@@ -19,11 +21,54 @@
         }
 
         public void inscribir(Participante p) {
+
+            int maxParticipantes = 32;
+
+            if(p == null ){
+                throw new NoInfoException("Falta informacion");
+            }
+
+            for(Participante inscritos : inscritos ){
+                if (inscritos.getNombre().equalsIgnoreCase(p.getNombre())){
+                    throw new DuplicadoException(inscritos.getNombre());
+                }
+            }
+
+            if (inscritos.size() > maxParticipantes) {
+                throw new CantidadInvalidaParticipantesException("El torneo tiene un maximo de " + maxParticipantes + " participantes.");
+            }
+
             this.inscritos.add(p);
             System.out.println(p.getNombre() + " se ha inscrito en " + this.nombre);
         }
 
         public void generarLlaves() {
+            if (inscritos.size() < 2) {
+                throw new CantidadInvalidaParticipantesException("Minimo de jugadores inscritos es 2 jugadores");
+            }
+
+            if(!formato.hayEmpates()){
+
+                boolean siPot2 = false ;
+
+                for (int i = 2; i<=32 ; i*=2){
+                   if(inscritos.size() == i ){
+                        siPot2 = true;
+                        break;
+                   }
+                }
+
+                if(!siPot2){
+                    throw new CantidadInvalidaParticipantesException("Cantidad de participantes para el formato debe ser potencia de 2");
+                }
+            }
+
+            for(Participante participante : inscritos){
+                if(!participante.estaListoParaJugar()){
+                    throw new EquipoNoListoException(participante.getNombre());
+                }
+            }
+
             llaves = formato.generarCalendario(this.inscritos);
             for (Partida partida : llaves) {
                 partida.agregarObservador(this);
@@ -110,7 +155,10 @@
 
         public void registrarResultadosPartida(Partida partida, int puntaje1,int puntaje2 ){
             if (puntaje1 == puntaje2 && !formato.hayEmpates()){
-                throw new IllegalArgumentException("formato no permite empates");
+                throw new EmpateException("formato no permite empates");
+            }
+            if (puntaje1 < 0 || puntaje2 < 0) {
+                throw new PuntajeInvalidoException("Puntaje no puede ser negativo");
             }
             partida.registrarResultado(puntaje1,puntaje2);
         }
