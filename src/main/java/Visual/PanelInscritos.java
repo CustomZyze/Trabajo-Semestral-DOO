@@ -13,12 +13,12 @@ public class PanelInscritos extends JPanel {
     public PanelInscritos(Ventana ventana) {
         setLayout(new BorderLayout(10, 10));
         setBackground(new Color(40, 40, 55));
-        
+
         JLabel titulo = new JLabel("Inscribir Participantes", SwingConstants.CENTER);
         titulo.setFont(new Font(Font.MONOSPACED, Font.BOLD, 22));
         titulo.setForeground(Color.WHITE);
         add(titulo, BorderLayout.NORTH);
-        
+
         JPanel form = new JPanel(new GridBagLayout());
         form.setBackground(new Color(40, 40, 55));
         GridBagConstraints gbc = new GridBagConstraints();
@@ -48,10 +48,9 @@ public class PanelInscritos extends JPanel {
         gbc.gridx = 0; gbc.gridy = 3; gbc.gridwidth = 2;
         form.add(lblMensaje, gbc);
 
-        JButton btnInscribir = new JButton("Inscribir");
+        RoundedButton btnInscribir = new RoundedButton("Inscribir", 20);
+        btnInscribir.setPreferredSize(new Dimension(150, 35));
         btnInscribir.setBackground(new Color(70, 130, 180));
-        btnInscribir.setForeground(Color.WHITE);
-        btnInscribir.setFocusPainted(false);
         btnInscribir.addActionListener(e -> {
             String nombre = txtNombre.getText().trim();
             String contacto = txtContacto.getText().trim();
@@ -72,7 +71,7 @@ public class PanelInscritos extends JPanel {
         form.add(btnInscribir, gbc);
 
         add(form, BorderLayout.WEST);
-        
+
         modeloLista = new DefaultListModel<>();
         JList<String> lista = new JList<>(modeloLista);
         lista.setBackground(new Color(30, 30, 45));
@@ -83,14 +82,13 @@ public class PanelInscritos extends JPanel {
                 BorderFactory.createLineBorder(Color.GRAY), "Inscritos",
                 0, 0, null, Color.WHITE));
         add(scroll, BorderLayout.CENTER);
-        
+
         JPanel botonesInf = new JPanel();
         botonesInf.setBackground(new Color(40, 40, 55));
 
-        JButton btnGenerar = new JButton("Generar Llaves");
+        RoundedButton btnGenerar = new RoundedButton("Generar Llaves", 20);
+        btnGenerar.setPreferredSize(new Dimension(170, 35));
         btnGenerar.setBackground(new Color(60, 160, 80));
-        btnGenerar.setForeground(Color.WHITE);
-        btnGenerar.setFocusPainted(false);
         btnGenerar.addActionListener(e -> {
             if (ventana.getTorneo().getInscritos().size() < 2) {
                 lblMensaje.setText("Mínimo 2 participantes.");
@@ -108,15 +106,15 @@ public class PanelInscritos extends JPanel {
         });
         botonesInf.add(btnGenerar);
 
-        JButton btnGestionar = new JButton("Gestionar Equipos");
+        RoundedButton btnGestionar = new RoundedButton("Gestionar Equipos", 20);
+        btnGestionar.setPreferredSize(new Dimension(180, 35));
         btnGestionar.setBackground(new Color(180, 100, 50));
-        btnGestionar.setForeground(Color.WHITE);
-        btnGestionar.setFocusPainted(false);
         btnGestionar.addActionListener(e -> ventana.mostrarPanel("GESTION_EQUIPOS"));
         botonesInf.add(btnGestionar);
 
-        JButton btnVolver = new JButton("Volver");
-        btnVolver.setFocusPainted(false);
+        RoundedButton btnVolver = new RoundedButton("Volver", 20);
+        btnVolver.setPreferredSize(new Dimension(120, 35));
+        btnVolver.setBackground(new Color(100, 100, 130));
         btnVolver.addActionListener(e -> ventana.mostrarPanel("MENU"));
         botonesInf.add(btnVolver);
 

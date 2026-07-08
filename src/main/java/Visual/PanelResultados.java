@@ -56,26 +56,25 @@ public class PanelResultados extends JPanel {
         gbc.gridwidth = 2;
         add(lblMensaje, gbc);
 
-        JButton btnCargar = new JButton("Cargar Partidas");
+        RoundedButton btnCargar = new RoundedButton("Cargar Partidas", 20);
+        btnCargar.setPreferredSize(new Dimension(170, 35));
         btnCargar.setBackground(new Color(70, 130, 180));
-        btnCargar.setForeground(Color.WHITE);
-        btnCargar.setFocusPainted(false);
         btnCargar.addActionListener(e -> cargarPartidas());
         gbc.gridy = 5;
         gbc.gridwidth = 1;
         gbc.gridx = 0;
         add(btnCargar, gbc);
 
-        JButton btnRegistrar = new JButton("Registrar");
+        RoundedButton btnRegistrar = new RoundedButton("Registrar", 20);
+        btnRegistrar.setPreferredSize(new Dimension(150, 35));
         btnRegistrar.setBackground(new Color(60, 160, 80));
-        btnRegistrar.setForeground(Color.WHITE);
-        btnRegistrar.setFocusPainted(false);
         btnRegistrar.addActionListener(e -> registrar());
         gbc.gridx = 1;
         add(btnRegistrar, gbc);
 
-        JButton btnVolver = new JButton("Ver Llaves");
-        btnVolver.setFocusPainted(false);
+        RoundedButton btnVolver = new RoundedButton("Ver Llaves", 20);
+        btnVolver.setPreferredSize(new Dimension(150, 35));
+        btnVolver.setBackground(new Color(219, 223, 112));
         btnVolver.addActionListener(e -> ventana.mostrarPanel("LLAVES"));
         gbc.gridy = 6;
         gbc.gridx = 0;
@@ -99,7 +98,6 @@ public class PanelResultados extends JPanel {
             int p1 = Integer.parseInt(txtPuntaje1.getText().trim());
             int p2 = Integer.parseInt(txtPuntaje2.getText().trim());
 
-            // solo llama al modelo, sin lógica de filtrado aquí
             ventana.getTorneo().getPartidasPendientes().get(idx).registrarResultado(p1, p2);
 
             lblMensaje.setText("Resultado registrado.");

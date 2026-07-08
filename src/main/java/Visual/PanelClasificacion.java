@@ -12,7 +12,7 @@ public class PanelClasificacion extends JPanel {
         this.ventana = ventana;
         setLayout(new BorderLayout(10, 10));
         setBackground(new Color(40, 40, 55));
-        
+
         JLabel titulo = new JLabel("Tabla de Clasificación", SwingConstants.CENTER);
         titulo.setFont(new Font(Font.MONOSPACED, Font.BOLD, 22));
         titulo.setForeground(Color.WHITE);
@@ -23,23 +23,24 @@ public class PanelClasificacion extends JPanel {
         panelTabla.setBackground(new Color(30, 30, 45));
         add(new JScrollPane(panelTabla), BorderLayout.CENTER);
 
-        JPanel botones = new JPanel();
+        JPanel botones = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 12));
         botones.setBackground(new Color(40, 40, 55));
 
-        JButton btnActualizar = new JButton("Actualizar");
+        RoundedButton btnActualizar = new RoundedButton("Actualizar", 20);
+        btnActualizar.setPreferredSize(new Dimension(140, 35));
         btnActualizar.setBackground(new Color(70, 130, 180));
-        btnActualizar.setForeground(Color.WHITE);
-        btnActualizar.setFocusPainted(false);
         btnActualizar.addActionListener(e -> actualizar());
         botones.add(btnActualizar);
 
-        JButton btnVolver = new JButton("Ver Llaves");
-        btnVolver.setFocusPainted(false);
+        RoundedButton btnVolver = new RoundedButton("Ver Llaves", 20);
+        btnVolver.setPreferredSize(new Dimension(140, 35));
+        btnVolver.setBackground(new Color(219, 223, 112));
         btnVolver.addActionListener(e -> ventana.mostrarPanel("LLAVES"));
         botones.add(btnVolver);
 
-        JButton btnMenu = new JButton("Menú");
-        btnMenu.setFocusPainted(false);
+        RoundedButton btnMenu = new RoundedButton("Menú", 20);
+        btnMenu.setPreferredSize(new Dimension(110, 35));
+        btnMenu.setBackground(new Color(151, 99, 219));
         btnMenu.addActionListener(e -> ventana.mostrarPanel("MENU"));
         botones.add(btnMenu);
 
@@ -100,7 +101,7 @@ public class PanelClasificacion extends JPanel {
                 : new Color(45, 45, 65));
 
         Color colorTexto = indice == 0
-                ? new Color(255, 215, 0)  // dorado para el líder
+                ? new Color(255, 215, 0)
                 : Color.WHITE;
 
         String[] valores = {

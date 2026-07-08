@@ -60,20 +60,21 @@ public class PanelGestionEquipos extends JPanel {
         JPanel panelBotones = new JPanel(new GridLayout(1, 3, 10, 0));
         panelBotones.setBackground(new Color(40, 40, 55));
 
-        JButton btnActualizarListado = new JButton("Cargar Equipos");
-        btnActualizarListado.setFocusPainted(false);
+        RoundedButton btnActualizarListado = new RoundedButton("Cargar Equipos", 20);
+        btnActualizarListado.setPreferredSize(new Dimension(160, 35));
+        btnActualizarListado.setBackground(new Color(100, 100, 130));
         btnActualizarListado.addActionListener(e -> cargarEquipos());
         panelBotones.add(btnActualizarListado);
 
-        JButton btnAñadir = new JButton("Añadir Jugador");
+        RoundedButton btnAñadir = new RoundedButton("Añadir Jugador", 20);
+        btnAñadir.setPreferredSize(new Dimension(160, 35));
         btnAñadir.setBackground(new Color(70, 130, 180));
-        btnAñadir.setForeground(Color.WHITE);
-        btnAñadir.setFocusPainted(false);
         btnAñadir.addActionListener(e -> agregarJugadorAlEquipo());
         panelBotones.add(btnAñadir);
 
-        JButton btnVolver = new JButton("Volver");
-        btnVolver.setFocusPainted(false);
+        RoundedButton btnVolver = new RoundedButton("Volver", 20);
+        btnVolver.setPreferredSize(new Dimension(120, 35));
+        btnVolver.setBackground(new Color(100, 100, 130));
         btnVolver.addActionListener(e -> ventana.mostrarPanel("INSCRITOS"));
         panelBotones.add(btnVolver);
 

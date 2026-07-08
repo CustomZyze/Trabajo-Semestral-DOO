@@ -17,7 +17,6 @@ public class Ventana extends JFrame {
         cardLayout = new CardLayout();
         contenedor = new JPanel(cardLayout);
 
-        // agregar paneles
         contenedor.add(new PanelMenu(this), "MENU");
         contenedor.add(new PanelCrearTorneo(this), "CREAR");
 

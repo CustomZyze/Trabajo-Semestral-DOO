@@ -16,9 +16,10 @@ public class PanelCrearTorneo extends JPanel {
         gbc.insets = new Insets(10, 10, 10, 10);
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
-        JLabel titulo = new JLabel("Crear Torneo");
-        titulo.setFont(new Font(Font.MONOSPACED, Font.BOLD, 24));
-        titulo.setForeground(Color.WHITE);
+        JLabel titulo = new JLabel("Crear Nuevo Torneo", SwingConstants.CENTER);
+        titulo.setFont(new Font("Segoe UI", Font.BOLD, 28));
+        titulo.setForeground(new Color(120, 200, 255));
+        titulo.setBorder(BorderFactory.createEmptyBorder(10, 0, 20, 0));
         gbc.gridx = 0; gbc.gridy = 0; gbc.gridwidth = 2;
         add(titulo, gbc);
 
@@ -46,16 +47,16 @@ public class PanelCrearTorneo extends JPanel {
         gbc.gridx = 0; gbc.gridy = 4; gbc.gridwidth = 2;
         add(lblMensaje, gbc);
 
-        JButton btnVolver = new JButton("Volver");
-        btnVolver.setFocusPainted(false);
+        RoundedButton btnVolver = new RoundedButton("Volver", 20);
+        btnVolver.setPreferredSize(new Dimension(150, 35));
+        btnVolver.setBackground(new Color(100, 100, 130));
         btnVolver.addActionListener(e -> ventana.mostrarPanel("MENU"));
         gbc.gridy = 5; gbc.gridwidth = 1; gbc.gridx = 0;
         add(btnVolver, gbc);
 
-        JButton btnCrear = new JButton("Crear");
+        RoundedButton btnCrear = new RoundedButton("Crear", 20);
+        btnCrear.setPreferredSize(new Dimension(150, 35));
         btnCrear.setBackground(new Color(70, 130, 180));
-        btnCrear.setForeground(Color.WHITE);
-        btnCrear.setFocusPainted(false);
         btnCrear.addActionListener(e -> {
             String nombre = txtNombre.getText().trim();
             if (nombre.isEmpty()) {
@@ -89,7 +90,7 @@ public class PanelCrearTorneo extends JPanel {
     private JLabel etiqueta(String texto) {
         JLabel lbl = new JLabel(texto);
         lbl.setForeground(Color.WHITE);
-        lbl.setFont(new Font(Font.MONOSPACED, Font.BOLD, 14));
+        lbl.setFont(new Font("Arial", Font.PLAIN, 14));
         return lbl;
     }
 }
