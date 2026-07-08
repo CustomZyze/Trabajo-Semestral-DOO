@@ -130,15 +130,23 @@ public class PanelGestionEquipos extends JPanel {
         }
 
         if (equipoDestino != null) {
-            Jugador nuevoJugador = new Jugador(nombre, contacto, rut);
-            equipoDestino.agregarIntegrante(nuevoJugador);
+           try{
+               Jugador nuevoJugador = new Jugador(nombre, contacto, rut);
 
-            lblMensaje.setText("Jugador " + nombre + " añadido a " + equipoDestino.getNombre());
-            lblMensaje.setForeground(new Color(100, 220, 100));
 
-            txtNombreJugador.setText("");
-            txtRutJugador.setText("");
-            txtContactoJugador.setText("");
+               equipoDestino.agregarIntegrante(nuevoJugador);
+
+               lblMensaje.setText("Jugador " + nombre + " añadido a " + equipoDestino.getNombre());
+               lblMensaje.setForeground(new Color(100, 220, 100));
+
+               txtNombreJugador.setText("");
+               txtRutJugador.setText("");
+               txtContactoJugador.setText("");
+           }
+           catch (IllegalArgumentException exception){
+               lblMensaje.setText(exception.getMessage());
+               lblMensaje.setForeground(Color.RED);
+           }
         }
     }
 

@@ -57,9 +57,10 @@ public class PanelInscritos extends JPanel {
             String contacto = txtContacto.getText().trim();
             if (nombre.isEmpty()) { lblMensaje.setText("Ingresa un nombre."); return; }
 
+            int limiteMax =ventana.getTorneo().getDisciplina().getMaxJugadores();
             Participante p = cbTipo.getSelectedIndex() == 0
                     ? new Jugador(nombre, contacto, "")
-                    : new Equipo(nombre, contacto);
+                    : new Equipo(nombre, contacto, limiteMax);
 
             ventana.getTorneo().inscribir(p);
             modeloLista.addElement(cbTipo.getSelectedItem() + ": " + nombre);
