@@ -21,10 +21,24 @@ public class PanelMenu extends JPanel {
         gbc.gridy = 1;
         add(btnCrear, gbc);
 
+        JLabel lblMensaje = new JLabel("", SwingConstants.CENTER);
+        lblMensaje.setForeground(Color.RED);
+        lblMensaje.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 14));
+
         RoundedButton btnVer = crearBoton("Ver Torneo Activo", new Color(60, 160, 80));
-        btnVer.addActionListener(e -> ventana.mostrarPanel("LLAVES"));
+        btnVer.addActionListener(e -> {
+            if (ventana.getTorneo() == null) {
+                lblMensaje.setText("No hay torneo activo.");
+            } else {
+                lblMensaje.setText("");
+                ventana.mostrarPanel("LLAVES");
+            }
+        });
         gbc.gridy = 2;
         add(btnVer, gbc);
+
+        gbc.gridy = 3;
+        add(lblMensaje, gbc);
     }
 
     private RoundedButton crearBoton(String texto, Color color) {

@@ -15,7 +15,7 @@ public class RoundedButton extends JButton {
         setBorderPainted(false);
         setOpaque(false);
         setForeground(Color.WHITE);
-        setFont(new Font(Font.MONOSPACED, Font.BOLD, 16));
+        setFont(new Font(Font.MONOSPACED, Font.BOLD, 14));
         setCursor(new Cursor(Cursor.HAND_CURSOR));
     }
 

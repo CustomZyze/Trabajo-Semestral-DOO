@@ -6,6 +6,8 @@ import java.awt.*;
 public class PanelInscritos extends JPanel {
     private JTextField txtNombre;
     private JTextField txtContacto;
+    private JTextField txtRut;
+    private JLabel lblRut;
     private JComboBox<String> cbTipo;
     private DefaultListModel<String> modeloLista;
     private JLabel lblMensaje;
@@ -43,9 +45,24 @@ public class PanelInscritos extends JPanel {
         gbc.gridx = 1;
         form.add(txtContacto, gbc);
 
+        // campo RUT solo para jugadores
+        gbc.gridx = 0; gbc.gridy = 3;
+        lblRut = etiqueta("RUT:");
+        form.add(lblRut, gbc);
+        txtRut = new JTextField(15);
+        gbc.gridx = 1;
+        form.add(txtRut, gbc);
+
+        // listener para mostrar/ocultar RUT según tipo
+        cbTipo.addItemListener(e -> {
+            boolean esJugador = cbTipo.getSelectedIndex() == 0;
+            lblRut.setVisible(esJugador);
+            txtRut.setVisible(esJugador);
+        });
+
         lblMensaje = new JLabel("");
         lblMensaje.setForeground(new Color(100, 220, 100));
-        gbc.gridx = 0; gbc.gridy = 3; gbc.gridwidth = 2;
+        gbc.gridx = 0; gbc.gridy = 4; gbc.gridwidth = 2;
         form.add(lblMensaje, gbc);
 
         RoundedButton btnInscribir = new RoundedButton("Inscribir", 20);
@@ -54,20 +71,26 @@ public class PanelInscritos extends JPanel {
         btnInscribir.addActionListener(e -> {
             String nombre = txtNombre.getText().trim();
             String contacto = txtContacto.getText().trim();
-            if (nombre.isEmpty()) { lblMensaje.setText("Ingresa un nombre."); return; }
+            if (nombre.isEmpty()) {
+                lblMensaje.setText("Ingresa un nombre.");
+                lblMensaje.setForeground(Color.RED);
+                return;
+            }
 
-            int limiteMax =ventana.getTorneo().getDisciplina().getMaxJugadores();
+            int limiteMax = ventana.getTorneo().getDisciplina().getMaxJugadores();
             Participante p = cbTipo.getSelectedIndex() == 0
-                    ? new Jugador(nombre, contacto, "")
+                    ? new Jugador(nombre, contacto, txtRut.getText().trim())
                     : new Equipo(nombre, contacto, limiteMax);
 
             ventana.getTorneo().inscribir(p);
             modeloLista.addElement(cbTipo.getSelectedItem() + ": " + nombre);
             txtNombre.setText("");
             txtContacto.setText("");
+            txtRut.setText("");
             lblMensaje.setText("Inscrito: " + nombre);
+            lblMensaje.setForeground(new Color(100, 220, 100));
         });
-        gbc.gridy = 4;
+        gbc.gridy = 5;
         form.add(btnInscribir, gbc);
 
         add(form, BorderLayout.WEST);
@@ -92,11 +115,12 @@ public class PanelInscritos extends JPanel {
         btnGenerar.addActionListener(e -> {
             if (ventana.getTorneo().getInscritos().size() < 2) {
                 lblMensaje.setText("Mínimo 2 participantes.");
+                lblMensaje.setForeground(Color.RED);
                 return;
             }
             for (Participante p : ventana.getTorneo().getInscritos()) {
                 if (!p.estaListoParaJugar()) {
-                    lblMensaje.setText("Error: El participante '" + p.getNombre() + "' no está listo.");
+                    lblMensaje.setText("El participante '" + p.getNombre() + "' no está listo.");
                     lblMensaje.setForeground(Color.RED);
                     return;
                 }

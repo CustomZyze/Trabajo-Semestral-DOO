@@ -56,27 +56,33 @@ public class PanelClasificacion extends JPanel {
         }
 
         Formato fmt = ventana.getTorneo().getFormato();
-        if (!fmt.tieneClasificacion()) {
-            mostrarMensaje("La clasificación solo está disponible para formatos de Liga.");
-            return;
+
+        if (fmt.tieneClasificacion()) {
+            mostrarTablaLiga(fmt.getTablaPosiciones());
+        } else {
+            mostrarCampeonEliminatoria();
         }
 
-        List<RegistroLiga> registros = fmt.getTablaPosiciones();
+        panelTabla.revalidate();
+        panelTabla.repaint();
+    }
+
+    private void mostrarTablaLiga(List<RegistroLiga> registros) {
         if (registros.isEmpty()) {
             mostrarMensaje("No hay registros aún.");
             return;
         }
 
         registros.sort((a, b) -> b.getPuntos() - a.getPuntos());
-
         panelTabla.add(crearEncabezado());
 
         for (int i = 0; i < registros.size(); i++) {
             panelTabla.add(crearFila(i, registros.get(i)));
         }
+    }
 
-        panelTabla.revalidate();
-        panelTabla.repaint();
+    private void mostrarCampeonEliminatoria() {
+        mostrarMensaje("La clasificación no está disponible para este formato.");
     }
 
     private JPanel crearEncabezado() {
@@ -127,6 +133,7 @@ public class PanelClasificacion extends JPanel {
         JLabel lbl = new JLabel(texto, SwingConstants.CENTER);
         lbl.setForeground(Color.GRAY);
         lbl.setFont(new Font(Font.MONOSPACED, Font.BOLD, 13));
+        lbl.setAlignmentX(Component.CENTER_ALIGNMENT);
         panelTabla.add(lbl);
         panelTabla.revalidate();
         panelTabla.repaint();
