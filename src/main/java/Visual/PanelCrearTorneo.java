@@ -17,7 +17,7 @@ public class PanelCrearTorneo extends JPanel {
         gbc.fill = GridBagConstraints.HORIZONTAL;
 
         JLabel titulo = new JLabel("Crear Nuevo Torneo", SwingConstants.CENTER);
-        titulo.setFont(new Font("Segoe UI", Font.BOLD, 28));
+        titulo.setFont(new Font(Font.MONOSPACED, Font.BOLD, 28));
         titulo.setForeground(new Color(120, 200, 255));
         titulo.setBorder(BorderFactory.createEmptyBorder(10, 0, 20, 0));
         gbc.gridx = 0; gbc.gridy = 0; gbc.gridwidth = 2;
@@ -90,7 +90,7 @@ public class PanelCrearTorneo extends JPanel {
     private JLabel etiqueta(String texto) {
         JLabel lbl = new JLabel(texto);
         lbl.setForeground(Color.WHITE);
-        lbl.setFont(new Font("Arial", Font.PLAIN, 14));
+        lbl.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 14));
         return lbl;
     }
 }

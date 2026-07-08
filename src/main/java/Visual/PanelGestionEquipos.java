@@ -61,19 +61,19 @@ public class PanelGestionEquipos extends JPanel {
         panelBotones.setBackground(new Color(40, 40, 55));
 
         RoundedButton btnActualizarListado = new RoundedButton("Cargar Equipos", 20);
-        btnActualizarListado.setPreferredSize(new Dimension(160, 35));
+        btnActualizarListado.setPreferredSize(new Dimension(180, 35));
         btnActualizarListado.setBackground(new Color(100, 100, 130));
         btnActualizarListado.addActionListener(e -> cargarEquipos());
         panelBotones.add(btnActualizarListado);
 
         RoundedButton btnAñadir = new RoundedButton("Añadir Jugador", 20);
-        btnAñadir.setPreferredSize(new Dimension(160, 35));
+        btnAñadir.setPreferredSize(new Dimension(180, 35));
         btnAñadir.setBackground(new Color(70, 130, 180));
         btnAñadir.addActionListener(e -> agregarJugadorAlEquipo());
         panelBotones.add(btnAñadir);
 
         RoundedButton btnVolver = new RoundedButton("Volver", 20);
-        btnVolver.setPreferredSize(new Dimension(120, 35));
+        btnVolver.setPreferredSize(new Dimension(100, 35));
         btnVolver.setBackground(new Color(100, 100, 130));
         btnVolver.addActionListener(e -> ventana.mostrarPanel("INSCRITOS"));
         panelBotones.add(btnVolver);

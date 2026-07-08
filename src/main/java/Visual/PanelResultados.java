@@ -57,7 +57,7 @@ public class PanelResultados extends JPanel {
         add(lblMensaje, gbc);
 
         RoundedButton btnCargar = new RoundedButton("Cargar Partidas", 20);
-        btnCargar.setPreferredSize(new Dimension(170, 35));
+        btnCargar.setPreferredSize(new Dimension(180, 35));
         btnCargar.setBackground(new Color(70, 130, 180));
         btnCargar.addActionListener(e -> cargarPartidas());
         gbc.gridy = 5;
@@ -66,7 +66,7 @@ public class PanelResultados extends JPanel {
         add(btnCargar, gbc);
 
         RoundedButton btnRegistrar = new RoundedButton("Registrar", 20);
-        btnRegistrar.setPreferredSize(new Dimension(150, 35));
+        btnRegistrar.setPreferredSize(new Dimension(140, 35));
         btnRegistrar.setBackground(new Color(180, 100, 50));
         btnRegistrar.addActionListener(e -> registrar());
         gbc.gridx = 1;
