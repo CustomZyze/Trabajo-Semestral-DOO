@@ -107,7 +107,7 @@ public class PanelInscritos extends JPanel {
         botonesInf.add(btnGenerar);
 
         RoundedButton btnGestionar = new RoundedButton("Gestionar Equipos", 20);
-        btnGestionar.setPreferredSize(new Dimension(180, 35));
+        btnGestionar.setPreferredSize(new Dimension(200, 35));
         btnGestionar.setBackground(new Color(180, 100, 50));
         btnGestionar.addActionListener(e -> ventana.mostrarPanel("GESTION_EQUIPOS"));
         botonesInf.add(btnGestionar);

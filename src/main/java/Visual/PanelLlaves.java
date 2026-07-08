@@ -28,25 +28,25 @@ public class PanelLlaves extends JPanel {
         JPanel botones = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 12));
         botones.setBackground(new Color(40, 40, 55));
 
-        RoundedButton btnActualizar = new RoundedButton("Actualizar", 20);
+        RoundedButton btnActualizar = new RoundedButton("Actualizar", 30);
         btnActualizar.setPreferredSize(new Dimension(130, 40));
         btnActualizar.setBackground(new Color(70, 130, 180));
         btnActualizar.addActionListener(e -> actualizar());
         botones.add(btnActualizar);
 
-        RoundedButton btnResultados = new RoundedButton("Registrar Resultados", 20);
-        btnResultados.setPreferredSize(new Dimension(190, 40));
+        RoundedButton btnResultados = new RoundedButton("Registrar Resultados", 30);
+        btnResultados.setPreferredSize(new Dimension(230, 40));
         btnResultados.setBackground(new Color(180, 100, 50));
         btnResultados.addActionListener(e -> ventana.mostrarPanel("RESULTADOS"));
         botones.add(btnResultados);
 
-        RoundedButton btnClasif = new RoundedButton("Ver Clasificación", 20);
-        btnClasif.setPreferredSize(new Dimension(170, 40));
+        RoundedButton btnClasif = new RoundedButton("Ver Clasificación", 30);
+        btnClasif.setPreferredSize(new Dimension(200, 40));
         btnClasif.setBackground(new Color(84, 152, 72));
         btnClasif.addActionListener(e -> ventana.mostrarPanel("CLASIFICACION"));
         botones.add(btnClasif);
 
-        RoundedButton btnVolver = new RoundedButton("Menú", 20);
+        RoundedButton btnVolver = new RoundedButton("Menú", 30);
         btnVolver.setPreferredSize(new Dimension(110, 40));
         btnVolver.setBackground(new Color(119, 87, 230));
         btnVolver.addActionListener(e -> ventana.mostrarPanel("MENU"));
