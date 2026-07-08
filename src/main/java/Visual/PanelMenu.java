@@ -11,7 +11,7 @@ public class PanelMenu extends JPanel {
         gbc.gridx = 0;
 
         JLabel titulo = new JLabel("Sistema de Torneos");
-        titulo.setFont(new Font("Arial", Font.BOLD, 32));
+        titulo.setFont(new Font(Font.MONOSPACED, Font.BOLD, 42));
         titulo.setForeground(Color.WHITE);
         gbc.gridy = 0;
         add(titulo, gbc);
@@ -29,10 +29,10 @@ public class PanelMenu extends JPanel {
 
     private JButton crearBoton(String texto, Color color) {
         JButton btn = new JButton(texto);
-        btn.setPreferredSize(new Dimension(250, 50));
+        btn.setPreferredSize(new Dimension(350, 70));
         btn.setBackground(color);
         btn.setForeground(Color.WHITE);
-        btn.setFont(new Font("Arial", Font.BOLD, 16));
+        btn.setFont(new Font(Font.MONOSPACED, Font.BOLD, 28));
         btn.setFocusPainted(false);
         btn.setBorderPainted(false);
         return btn;

@@ -15,7 +15,7 @@ public class PanelInscritos extends JPanel {
         setBackground(new Color(40, 40, 55));
         
         JLabel titulo = new JLabel("Inscribir Participantes", SwingConstants.CENTER);
-        titulo.setFont(new Font("Arial", Font.BOLD, 22));
+        titulo.setFont(new Font(Font.MONOSPACED, Font.BOLD, 22));
         titulo.setForeground(Color.WHITE);
         add(titulo, BorderLayout.NORTH);
         
@@ -76,7 +76,7 @@ public class PanelInscritos extends JPanel {
         JList<String> lista = new JList<>(modeloLista);
         lista.setBackground(new Color(30, 30, 45));
         lista.setForeground(Color.WHITE);
-        lista.setFont(new Font("Arial", Font.PLAIN, 14));
+        lista.setFont(new Font(Font.MONOSPACED, Font.BOLD, 14));
         JScrollPane scroll = new JScrollPane(lista);
         scroll.setBorder(BorderFactory.createTitledBorder(
                 BorderFactory.createLineBorder(Color.GRAY), "Inscritos",
@@ -125,7 +125,7 @@ public class PanelInscritos extends JPanel {
     private JLabel etiqueta(String texto) {
         JLabel lbl = new JLabel(texto);
         lbl.setForeground(Color.WHITE);
-        lbl.setFont(new Font("Arial", Font.PLAIN, 14));
+        lbl.setFont(new Font(Font.MONOSPACED, Font.BOLD, 14));
         return lbl;
     }
 }

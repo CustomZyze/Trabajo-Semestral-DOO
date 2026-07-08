@@ -14,7 +14,7 @@ public class PanelClasificacion extends JPanel {
         setBackground(new Color(40, 40, 55));
         
         JLabel titulo = new JLabel("Tabla de Clasificación", SwingConstants.CENTER);
-        titulo.setFont(new Font("Arial", Font.BOLD, 22));
+        titulo.setFont(new Font(Font.MONOSPACED, Font.BOLD, 22));
         titulo.setForeground(Color.WHITE);
         add(titulo, BorderLayout.NORTH);
 
@@ -86,7 +86,7 @@ public class PanelClasificacion extends JPanel {
         for (String col : new String[]{"#", "Participante", "PJ", "G", "E", "P", "Pts"}) {
             JLabel lbl = new JLabel(col, SwingConstants.CENTER);
             lbl.setForeground(Color.WHITE);
-            lbl.setFont(new Font("Arial", Font.BOLD, 13));
+            lbl.setFont(new Font(Font.MONOSPACED, Font.BOLD, 13));
             header.add(lbl);
         }
         return header;
@@ -116,7 +116,7 @@ public class PanelClasificacion extends JPanel {
         for (String val : valores) {
             JLabel lbl = new JLabel(val, SwingConstants.CENTER);
             lbl.setForeground(colorTexto);
-            lbl.setFont(new Font("Arial", Font.PLAIN, 13));
+            lbl.setFont(new Font(Font.MONOSPACED, Font.BOLD, 13));
             fila.add(lbl);
         }
         return fila;
@@ -125,7 +125,7 @@ public class PanelClasificacion extends JPanel {
     private void mostrarMensaje(String texto) {
         JLabel lbl = new JLabel(texto, SwingConstants.CENTER);
         lbl.setForeground(Color.GRAY);
-        lbl.setFont(new Font("Arial", Font.ITALIC, 14));
+        lbl.setFont(new Font(Font.MONOSPACED, Font.BOLD, 13));
         panelTabla.add(lbl);
         panelTabla.revalidate();
         panelTabla.repaint();
