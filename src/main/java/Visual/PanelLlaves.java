@@ -25,30 +25,30 @@ public class PanelLlaves extends JPanel {
         JScrollPane scroll = new JScrollPane(panelPartidas);
         add(scroll, BorderLayout.CENTER);
 
-        JPanel botones = new JPanel();
+        JPanel botones = new JPanel(new FlowLayout(FlowLayout.CENTER, 15, 12));
         botones.setBackground(new Color(40, 40, 55));
 
-        JButton btnActualizar = new JButton("Actualizar");
+        RoundedButton btnActualizar = new RoundedButton("Actualizar", 20);
+        btnActualizar.setPreferredSize(new Dimension(130, 40));
         btnActualizar.setBackground(new Color(70, 130, 180));
-        btnActualizar.setForeground(Color.WHITE);
-        btnActualizar.setFocusPainted(false);
         btnActualizar.addActionListener(e -> actualizar());
         botones.add(btnActualizar);
 
-        JButton btnResultados = new JButton("Registrar Resultados");
+        RoundedButton btnResultados = new RoundedButton("Registrar Resultados", 20);
+        btnResultados.setPreferredSize(new Dimension(190, 40));
         btnResultados.setBackground(new Color(180, 100, 50));
-        btnResultados.setForeground(Color.WHITE);
-        btnResultados.setFocusPainted(false);
         btnResultados.addActionListener(e -> ventana.mostrarPanel("RESULTADOS"));
         botones.add(btnResultados);
 
-        JButton btnClasif = new JButton("Ver Clasificación");
-        btnClasif.setFocusPainted(false);
+        RoundedButton btnClasif = new RoundedButton("Ver Clasificación", 20);
+        btnClasif.setPreferredSize(new Dimension(170, 40));
+        btnClasif.setBackground(new Color(84, 152, 72));
         btnClasif.addActionListener(e -> ventana.mostrarPanel("CLASIFICACION"));
         botones.add(btnClasif);
 
-        JButton btnVolver = new JButton("Menú");
-        btnVolver.setFocusPainted(false);
+        RoundedButton btnVolver = new RoundedButton("Menú", 20);
+        btnVolver.setPreferredSize(new Dimension(110, 40));
+        btnVolver.setBackground(new Color(119, 87, 230));
         btnVolver.addActionListener(e -> ventana.mostrarPanel("MENU"));
         botones.add(btnVolver);
 

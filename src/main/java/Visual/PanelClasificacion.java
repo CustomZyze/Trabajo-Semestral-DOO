@@ -34,7 +34,7 @@ public class PanelClasificacion extends JPanel {
 
         RoundedButton btnVolver = new RoundedButton("Ver Llaves", 20);
         btnVolver.setPreferredSize(new Dimension(140, 35));
-        btnVolver.setBackground(new Color(219, 223, 112));
+        btnVolver.setBackground(new Color(84, 152, 72));
         btnVolver.addActionListener(e -> ventana.mostrarPanel("LLAVES"));
         botones.add(btnVolver);
 

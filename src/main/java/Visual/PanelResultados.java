@@ -67,14 +67,14 @@ public class PanelResultados extends JPanel {
 
         RoundedButton btnRegistrar = new RoundedButton("Registrar", 20);
         btnRegistrar.setPreferredSize(new Dimension(150, 35));
-        btnRegistrar.setBackground(new Color(60, 160, 80));
+        btnRegistrar.setBackground(new Color(180, 100, 50));
         btnRegistrar.addActionListener(e -> registrar());
         gbc.gridx = 1;
         add(btnRegistrar, gbc);
 
         RoundedButton btnVolver = new RoundedButton("Ver Llaves", 20);
         btnVolver.setPreferredSize(new Dimension(150, 35));
-        btnVolver.setBackground(new Color(219, 223, 112));
+        btnVolver.setBackground(new Color(84, 152, 72));
         btnVolver.addActionListener(e -> ventana.mostrarPanel("LLAVES"));
         gbc.gridy = 6;
         gbc.gridx = 0;
