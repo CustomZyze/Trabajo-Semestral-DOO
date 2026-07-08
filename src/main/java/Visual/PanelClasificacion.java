@@ -101,14 +101,24 @@ public class PanelClasificacion extends JPanel {
 
     private JPanel crearFila(int indice, RegistroLiga registro) {
         JPanel fila = new JPanel(new GridLayout(1, 7));
-        fila.setMaximumSize(new Dimension(Integer.MAX_VALUE, 35));
-        fila.setBackground(indice % 2 == 0
-                ? new Color(35, 35, 50)
-                : new Color(45, 45, 65));
+        fila.setMaximumSize(new Dimension(Integer.MAX_VALUE, 45));
 
-        Color colorTexto = indice == 0
-                ? new Color(255, 215, 0)
-                : Color.WHITE;
+        Color fondoFila = switch (indice) {
+            case 0 -> new Color(50, 45, 20);
+            case 1 -> new Color(94, 94, 112);
+            case 2 -> new Color(45, 30, 20);
+            default -> indice % 2 == 0
+                    ? new Color(35, 35, 50)
+                    : new Color(45, 45, 65);
+        };
+        fila.setBackground(fondoFila);
+
+        Color colorTexto = switch (indice) {
+            case 0 -> new Color(255, 215, 0);
+            case 1 -> new Color(192, 192, 192);
+            case 2 -> new Color(205, 127, 50);
+            default -> Color.WHITE;
+        };
 
         String[] valores = {
                 String.valueOf(indice + 1),

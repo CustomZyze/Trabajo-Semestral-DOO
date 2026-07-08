@@ -45,7 +45,6 @@ public class PanelInscritos extends JPanel {
         gbc.gridx = 1;
         form.add(txtContacto, gbc);
 
-        // campo RUT solo para jugadores
         gbc.gridx = 0; gbc.gridy = 3;
         lblRut = etiqueta("RUT:");
         form.add(lblRut, gbc);
@@ -53,7 +52,6 @@ public class PanelInscritos extends JPanel {
         gbc.gridx = 1;
         form.add(txtRut, gbc);
 
-        // listener para mostrar/ocultar RUT según tipo
         cbTipo.addItemListener(e -> {
             boolean esJugador = cbTipo.getSelectedIndex() == 0;
             lblRut.setVisible(esJugador);
@@ -103,7 +101,7 @@ public class PanelInscritos extends JPanel {
         JScrollPane scroll = new JScrollPane(lista);
         scroll.setBorder(BorderFactory.createTitledBorder(
                 BorderFactory.createLineBorder(Color.GRAY), "Inscritos",
-                0, 0, null, Color.WHITE));
+                0, 0, null, Color.BLACK));
         add(scroll, BorderLayout.CENTER);
 
         JPanel botonesInf = new JPanel();

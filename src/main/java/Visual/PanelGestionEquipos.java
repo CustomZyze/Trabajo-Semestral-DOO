@@ -3,6 +3,7 @@ package Visual;
 import LogicaTorneo.*;
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
 
 public class PanelGestionEquipos extends JPanel {
     private JComboBox<String> cbEquipos;
@@ -10,80 +11,114 @@ public class PanelGestionEquipos extends JPanel {
     private JTextField txtContactoJugador;
     private JTextField txtRutJugador;
     private JLabel lblMensaje;
-    private JLabel lblConteoJugadores;
+    private DefaultListModel<String> modeloRoster;
+    private JList<String> listaRoster;
+    private JScrollPane scrollRoster;
     private Ventana ventana;
 
     public PanelGestionEquipos(Ventana ventana) {
         this.ventana = ventana;
-        setLayout(new GridBagLayout());
+        setLayout(new BorderLayout(10, 10));
         setBackground(new Color(40, 40, 55));
-        GridBagConstraints gbc = new GridBagConstraints();
-        gbc.insets = new Insets(10, 10, 10, 10);
-        gbc.fill = GridBagConstraints.HORIZONTAL;
 
         JLabel titulo = new JLabel("Añadir Jugadores a Equipo", SwingConstants.CENTER);
         titulo.setFont(new Font(Font.MONOSPACED, Font.BOLD, 22));
         titulo.setForeground(Color.WHITE);
-        gbc.gridx = 0; gbc.gridy = 0; gbc.gridwidth = 2;
-        add(titulo, gbc);
+        add(titulo, BorderLayout.NORTH);
 
-        gbc.gridwidth = 1;
-        gbc.gridx = 0; gbc.gridy = 1;
-        add(etiqueta("Seleccionar Equipo:"), gbc);
+        JPanel form = new JPanel(new GridBagLayout());
+        form.setBackground(new Color(40, 40, 55));
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(8, 8, 8, 8);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+
+        gbc.gridx = 0; gbc.gridy = 0;
+        form.add(etiqueta("Seleccionar Equipo:"), gbc);
         cbEquipos = new JComboBox<>();
+        cbEquipos.addItemListener(e -> {
+            if (e.getStateChange() == java.awt.event.ItemEvent.SELECTED) {
+                actualizarRoster();
+            }
+        });
         gbc.gridx = 1;
-        add(cbEquipos, gbc);
+        form.add(cbEquipos, gbc);
 
-        gbc.gridx = 0; gbc.gridy = 2;
-        add(etiqueta("Nombre Jugador:"), gbc);
+        gbc.gridx = 0; gbc.gridy = 1;
+        form.add(etiqueta("Nombre Jugador:"), gbc);
         txtNombreJugador = new JTextField(15);
         gbc.gridx = 1;
-        add(txtNombreJugador, gbc);
+        form.add(txtNombreJugador, gbc);
 
-        gbc.gridx = 0; gbc.gridy = 3;
-        add(etiqueta("RUT:"), gbc);
+        gbc.gridx = 0; gbc.gridy = 2;
+        form.add(etiqueta("RUT:"), gbc);
         txtRutJugador = new JTextField(15);
         gbc.gridx = 1;
-        add(txtRutJugador, gbc);
+        form.add(txtRutJugador, gbc);
 
-        gbc.gridx = 0; gbc.gridy = 4;
-        add(etiqueta("Contacto:"), gbc);
+        gbc.gridx = 0; gbc.gridy = 3;
+        form.add(etiqueta("Contacto:"), gbc);
         txtContactoJugador = new JTextField(15);
         gbc.gridx = 1;
-        add(txtContactoJugador, gbc);
+        form.add(txtContactoJugador, gbc);
 
         lblMensaje = new JLabel("");
         lblMensaje.setForeground(new Color(100, 220, 100));
-        gbc.gridx = 0; gbc.gridy = 5; gbc.gridwidth = 2;
-        add(lblMensaje, gbc);
-
-        JPanel panelBotones = new JPanel(new GridLayout(1, 3, 10, 0));
-        panelBotones.setBackground(new Color(40, 40, 55));
+        gbc.gridx = 0; gbc.gridy = 4; gbc.gridwidth = 2;
+        form.add(lblMensaje, gbc);
 
         RoundedButton btnActualizarListado = new RoundedButton("Cargar Equipos", 20);
         btnActualizarListado.setPreferredSize(new Dimension(180, 35));
         btnActualizarListado.setBackground(new Color(100, 100, 130));
         btnActualizarListado.addActionListener(e -> cargarEquipos());
-        panelBotones.add(btnActualizarListado);
+        gbc.gridx = 0; gbc.gridy = 5; gbc.gridwidth = 1;
+        form.add(btnActualizarListado, gbc);
 
         RoundedButton btnAñadir = new RoundedButton("Añadir Jugador", 20);
         btnAñadir.setPreferredSize(new Dimension(180, 35));
         btnAñadir.setBackground(new Color(70, 130, 180));
         btnAñadir.addActionListener(e -> agregarJugadorAlEquipo());
-        panelBotones.add(btnAñadir);
+        gbc.gridx = 1;
+        form.add(btnAñadir, gbc);
+
+        add(form, BorderLayout.WEST);
+
+        JPanel panelRoster = new JPanel(new BorderLayout());
+        panelRoster.setBackground(new Color(40, 40, 55));
+
+        modeloRoster = new DefaultListModel<>();
+        listaRoster = new JList<>(modeloRoster);
+        listaRoster.setBackground(new Color(30, 30, 45));
+        listaRoster.setForeground(Color.WHITE);
+        listaRoster.setFont(new Font(Font.MONOSPACED, Font.PLAIN, 14));
+
+        scrollRoster = new JScrollPane(listaRoster);
+        actualizarTituloRoster("Jugadores del equipo");
+        panelRoster.add(scrollRoster, BorderLayout.CENTER);
+
+        add(panelRoster, BorderLayout.CENTER);
+
+        JPanel panelInf = new JPanel();
+        panelInf.setBackground(new Color(40, 40, 55));
 
         RoundedButton btnVolver = new RoundedButton("Volver", 20);
-        btnVolver.setPreferredSize(new Dimension(100, 35));
+        btnVolver.setPreferredSize(new Dimension(120, 35));
         btnVolver.setBackground(new Color(100, 100, 130));
         btnVolver.addActionListener(e -> ventana.mostrarPanel("INSCRITOS"));
-        panelBotones.add(btnVolver);
+        panelInf.add(btnVolver);
 
-        gbc.gridy = 6; gbc.gridx = 0; gbc.gridwidth = 2;
-        add(panelBotones, gbc);
+        add(panelInf, BorderLayout.SOUTH);
+    }
+
+    private void actualizarTituloRoster(String texto) {
+        scrollRoster.setBorder(BorderFactory.createTitledBorder(
+                BorderFactory.createLineBorder(Color.GRAY), texto,
+                0, 0, new Font(Font.MONOSPACED, Font.BOLD, 14), new Color(0, 0, 0)));
     }
 
     private void cargarEquipos() {
         cbEquipos.removeAllItems();
+        modeloRoster.clear();
+        actualizarTituloRoster("Jugadores del equipo");
         if (ventana.getTorneo() == null) return;
 
         for (Participante p : ventana.getTorneo().getInscritos()) {
@@ -98,12 +133,48 @@ public class PanelGestionEquipos extends JPanel {
         } else {
             lblMensaje.setText("Equipos cargados.");
             lblMensaje.setForeground(Color.WHITE);
+            cbEquipos.setSelectedIndex(0);
+            actualizarRoster();
+        }
+    }
+
+    private Equipo obtenerEquipoSeleccionado() {
+        String nombreSeleccionado = (String) cbEquipos.getSelectedItem();
+        if (nombreSeleccionado == null || ventana.getTorneo() == null) return null;
+
+        for (Participante p : ventana.getTorneo().getInscritos()) {
+            if (p.aceptaIntegrantes() && p.getNombre().equals(nombreSeleccionado) && p instanceof Equipo) {
+                return (Equipo) p;
+            }
+        }
+        return null;
+    }
+
+    private void actualizarRoster() {
+        modeloRoster.clear();
+        Equipo equipo = obtenerEquipoSeleccionado();
+
+        if (equipo == null) {
+            actualizarTituloRoster("Jugadores del equipo");
+            return;
+        }
+
+        List<Jugador> jugadores = equipo.getJugadores();
+        int maximo = ventana.getTorneo().getDisciplina().getMaxJugadores();
+        actualizarTituloRoster(equipo.getNombre() + "  (" + jugadores.size() + "/" + maximo + ")");
+
+        if (jugadores.isEmpty()) {
+            modeloRoster.addElement("(Sin jugadores aún)");
+        } else {
+            for (Jugador j : jugadores) {
+                modeloRoster.addElement(j.getNombre());
+            }
         }
     }
 
     private void agregarJugadorAlEquipo() {
-        int idx = cbEquipos.getSelectedIndex();
-        if (idx < 0) {
+        Equipo equipoDestino = obtenerEquipoSeleccionado();
+        if (equipoDestino == null) {
             lblMensaje.setText("Selecciona un equipo primero.");
             lblMensaje.setForeground(Color.RED);
             return;
@@ -119,35 +190,21 @@ public class PanelGestionEquipos extends JPanel {
             return;
         }
 
-        String nombreEquipoSeleccionado = (String) cbEquipos.getSelectedItem();
-        Participante equipoDestino = null;
+        try {
+            Jugador nuevoJugador = new Jugador(nombre, contacto, rut);
+            equipoDestino.agregarIntegrante(nuevoJugador);
 
-        for (Participante p : ventana.getTorneo().getInscritos()) {
+            lblMensaje.setText("Jugador " + nombre + " añadido a " + equipoDestino.getNombre());
+            lblMensaje.setForeground(new Color(100, 220, 100));
 
-            if (p.aceptaIntegrantes() && p.getNombre().equals(nombreEquipoSeleccionado)) {
-                equipoDestino = p;
-                break;
-            }
-        }
+            txtNombreJugador.setText("");
+            txtRutJugador.setText("");
+            txtContactoJugador.setText("");
 
-        if (equipoDestino != null) {
-           try{
-               Jugador nuevoJugador = new Jugador(nombre, contacto, rut);
-
-
-               equipoDestino.agregarIntegrante(nuevoJugador);
-
-               lblMensaje.setText("Jugador " + nombre + " añadido a " + equipoDestino.getNombre());
-               lblMensaje.setForeground(new Color(100, 220, 100));
-
-               txtNombreJugador.setText("");
-               txtRutJugador.setText("");
-               txtContactoJugador.setText("");
-           }
-           catch (IllegalArgumentException exception){
-               lblMensaje.setText(exception.getMessage());
-               lblMensaje.setForeground(Color.RED);
-           }
+            actualizarRoster();
+        } catch (IllegalArgumentException exception) {
+            lblMensaje.setText(exception.getMessage());
+            lblMensaje.setForeground(Color.RED);
         }
     }
 
