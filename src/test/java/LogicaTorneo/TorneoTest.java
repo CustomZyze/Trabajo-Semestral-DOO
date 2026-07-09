@@ -6,6 +6,8 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.List;
 
 public class TorneoTest {
@@ -154,5 +156,42 @@ public class TorneoTest {
         assertThrows(EmpateException.class, () -> {
             torneo.registrarResultadosPartida(partidaTest2, 2, 2);
         }, "El Formato no admite un empate entre equipos");
+    }
+    @Test
+    @DisplayName("programarFechas asigna bloques de las 17:00 y 20:00 alternadamente")
+    public void testHorariosAlternadosFechas() {
+        Formato formatoPrueba = new Formato() {
+            @Override
+            public List<Partida> generarCalendario(List<Participante> inscritos) {
+                List<Partida> lista = new java.util.ArrayList<>();
+                lista.add(new Partida(inscritos.get(0), inscritos.get(1)));
+                lista.add(new Partida(inscritos.get(2), inscritos.get(3)));
+                return lista;
+            }
+            @Override public boolean hayEmpates() { return false; }
+            @Override public void actualizarResultado(Partida partida) {}
+            @Override public List<Partida> avanzarRonda(List<Partida> llaves) { return new java.util.ArrayList<>(); }
+            @Override public Participante obtenerCampeon(List<Partida> llaves) { return null; }
+            @Override public boolean tieneClasificacion() { return false; }
+            @Override public List<RegistroLiga> getTablaPosiciones() { return null; }
+        };
+
+        Torneo torneoFechas = new Torneo("Torneo Fechas", Disciplina.LOL, formatoPrueba);
+        torneoFechas.inscribir(new Jugador("J1", "c", "1"));
+        torneoFechas.inscribir(new Jugador("J2", "c", "2"));
+        torneoFechas.inscribir(new Jugador("J3", "c", "3"));
+        torneoFechas.inscribir(new Jugador("J4", "c", "4"));
+        torneoFechas.generarLlaves();
+
+        LocalDate fechaInicio = LocalDate.of(2026, 11, 10);
+        torneoFechas.programarFechas(fechaInicio);
+        List<Partida> partidas = torneoFechas.getLlaves();
+
+
+        assertEquals(LocalTime.of(17, 0), partidas.get(0).getFecha().toLocalTime());
+        assertEquals(fechaInicio, partidas.get(0).getFecha().toLocalDate());
+
+        assertEquals(LocalTime.of(20, 0), partidas.get(1).getFecha().toLocalTime());
+        assertEquals(fechaInicio, partidas.get(1).getFecha().toLocalDate());
     }
 }
