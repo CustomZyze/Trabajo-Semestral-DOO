@@ -3,10 +3,32 @@ package LogicaTorneo;
 import java.util.List;
 import java.util.ArrayList;
 
+
+/**
+ * Representa el formato de eliminación doble. el cual un
+ * participante no queda eliminado al perder una sola vez.
+ * Al perder por primera vez, pasa a la llave de perdedores.
+ * Si pierde nuevamente en la llave de perdedores, queda eliminado.
+ */
 public class ElimDoble implements Formato {
+
+    /**
+     * Lista de participantes que siguen en la llave de ganadores.
+     */
     private List<Participante> llaveWinners = new ArrayList<>();
+
+    /**
+     * Lista de participantes que siguen en la llave de perdedores.
+     */
     private List<Participante> llaveLosers = new ArrayList<>();
 
+    /**
+     * Genera la primera ronda del torneo.
+     * Todos los participantes comienzan en la llave de ganadores. Luego se
+     * emparejan de dos en dos para crear las partidas iniciales.
+     * @param participantes lista de participantes inscritos en el torneo.
+     * @return lista de partidas correspondientes a la primera ronda.
+     */
     @Override
     public List<Partida> generarCalendario(List<Participante> participantes) {
         llaveWinners.addAll(participantes);
@@ -20,6 +42,17 @@ public class ElimDoble implements Formato {
         return primeraRonda;
     }
 
+    /**
+     * Genera la siguiente ronda del torneo de eliminación doble.
+     * Este metodo revisa los resultados de la ronda actual y separa a los
+     * participantes según corresponda:
+     * - Los ganadores de la llave de ganadores siguen en winners.
+     * - Los perdedores de winners bajan a losers.
+     * - Los ganadores de losers siguen compitiendo.
+     * - Los perdedores de losers quedan eliminados.
+     * @param rondaActual lista de partidas de la ronda actual.
+     * @return lista de partidas de la siguiente ronda.
+     */
     @Override
     public List<Partida> avanzarRonda(List<Partida> rondaActual) {
         List<Participante> ganadoresEsteTurno = new ArrayList<>();
@@ -75,11 +108,20 @@ public class ElimDoble implements Formato {
         return sigRonda;
     }
 
+    /**
+     * Actualiza el resultado de una partida.
+     * @param partida partida cuyo resultado podría actualizarse.
+     */
     @Override
     public void actualizarResultado(Partida partida) {
 
     }
 
+    /**
+     * Obtiene el campeón del torneo.
+     * @param rondaActual lista de partidas de la ronda actual o final.
+     * @return participante campeón si existe, o null si todavía no hay campeón.
+     */
     @Override
     public Participante obtenerCampeon(List<Partida> rondaActual) {
         if (!rondaActual.isEmpty() && rondaActual.get(0).getGanador() != null) {
@@ -88,11 +130,20 @@ public class ElimDoble implements Formato {
         return null;
     }
 
+    /**
+     * Indica si el formato tiene tabla de clasificación.
+     * @return false, porque no tiene clasificación.
+     */
     @Override
     public boolean tieneClasificacion() {
         return false;
     }
 
+
+    /**
+     * Obtiene la tabla de posiciones.
+     * @return lista vacía.
+     */
     @Override
     public List<RegistroLiga> getTablaPosiciones() {
         return List.of();
