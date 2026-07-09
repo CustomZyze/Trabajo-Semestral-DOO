@@ -4,15 +4,54 @@ import javax.swing.*;
 import java.awt.*;
 import java.time.LocalDate;
 
+/**
+ * Panel que permite inscribir participantes (jugadores o equipos) en el
+ * torneo activo.
+ *
+ * Muestra un formulario que se adapta según el tipo de participante
+ * seleccionado: si es "Jugador", solicita nombre, contacto y RUT; si es
+ * "Equipo", solicita nombre y contacto, asignando automáticamente el
+ * límite máximo de integrantes según la disciplina del torneo. Los
+ * participantes inscritos se van agregando a una lista visual.
+ *
+ * También permite generar las llaves del torneo una vez inscritos los
+ * participantes necesarios (lo que además programa las fechas de las
+ * partidas a partir de la fecha de inicio del torneo), navegar a la
+ * gestión de equipos, o volver al menú principal.
+ *
+ */
 public class PanelInscritos extends JPanel {
+
+    /** Campo de texto donde se ingresa el nombre del participante a inscribir. */
     private JTextField txtNombre;
+
+    /** Campo de texto donde se ingresa el contacto del participante a inscribir. */
     private JTextField txtContacto;
+
+    /** Campo de texto donde se ingresa el RUT del participante, usado solo cuando el tipo es Jugador. */
     private JTextField txtRut;
+
+    /** Etiqueta del campo RUT, cuya visibilidad depende del tipo de participante seleccionado. */
     private JLabel lblRut;
+
+    /** Combo que permite elegir el tipo de participante a inscribir: Jugador o Equipo. */
     private JComboBox<String> cbTipo;
+
+    /** Modelo de datos que respalda la lista visual de participantes inscritos. */
     private DefaultListModel<String> modeloLista;
+
+    /** Etiqueta usada para mostrar mensajes de éxito o error al usuario. */
     private JLabel lblMensaje;
 
+    /**
+     * Construye el panel de inscripción, inicializando el formulario
+     * dinámico (que cambia según el tipo de participante "Jugador" o "Equipo"), la lista de
+     * inscritos, y los botones de navegación (Generar Llaves, Gestionar
+     * Equipos, Volver).
+     *
+     * @param ventana referencia a la ventana principal de la aplicación,
+     *                usada para acceder al torneo activo y cambiar de panel
+     */
     public PanelInscritos(Ventana ventana) {
         setLayout(new BorderLayout(10, 10));
         setBackground(new Color(40, 40, 55));
@@ -144,6 +183,13 @@ public class PanelInscritos extends JPanel {
         add(botonesInf, BorderLayout.SOUTH);
     }
 
+    /**
+     * Crea una etiqueta de texto con el estilo visual estándar usado
+     * en el formulario del panel.
+     *
+     * @param texto contenido de la etiqueta
+     * @return un JLabel configurado con el estilo del formulario
+     */
     private JLabel etiqueta(String texto) {
         JLabel lbl = new JLabel(texto);
         lbl.setForeground(Color.WHITE);

@@ -2,7 +2,26 @@ package Visual;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * Panel principal del sistema, mostrado al iniciar la aplicación.
+ *
+ * Presenta el título del sistema y dos opciones principales: crear un
+ * nuevo torneo, o ver el torneo actualmente activo. Si no existe un
+ * torneo activo al intentar verlo, se muestra un mensaje de error en
+ * lugar de navegar al panel de llaves.
+ *
+ */
 public class PanelMenu extends JPanel {
+
+    /**
+     * Construye el panel de menú, inicializando el título del sistema
+     * y los botones de navegación (Crear Torneo, Ver Torneo Activo),
+     * junto con una etiqueta de mensaje usada para avisar cuando no
+     * hay torneo activo.
+     *
+     * @param ventana referencia a la ventana principal de la aplicación,
+     *                usada para consultar el torneo activo y cambiar de panel
+     */
     public PanelMenu(Ventana ventana) {
         setLayout(new GridBagLayout());
         setBackground(new Color(30, 30, 45));
@@ -41,6 +60,14 @@ public class PanelMenu extends JPanel {
         add(lblMensaje, gbc);
     }
 
+    /**
+     * Crea un botón redondeado con el estilo visual estándar usado en
+     * el menú principal.
+     *
+     * @param texto texto a mostrar en el botón
+     * @param color color de fondo del botón
+     * @return un RoundedButton configurado con el estilo del menú
+     */
     private RoundedButton crearBoton(String texto, Color color) {
         RoundedButton btn = new RoundedButton(texto, 25);
         btn.setPreferredSize(new Dimension(250, 70));
