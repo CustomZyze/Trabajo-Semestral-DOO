@@ -85,7 +85,7 @@ public class PanelClasificacion extends JPanel {
      * tiene clasificación, muestra la tabla de posiciones; si el formato no tiene
      * clasificación, muestra un mensaje.
      *
-     * Este método se invoca al presionar el botón "Actualizar".
+     * Este metodo se invoca al presionar el botón "Actualizar".
      */
     public void actualizar() {
         panelTabla.removeAll();

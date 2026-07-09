@@ -90,7 +90,7 @@ public class PanelLlaves extends JPanel {
      * además un mensaje destacando al campeón. Si no hay torneo activo,
      * no se realiza ninguna acción.
      *
-     * Este método se invoca al presionar el botón "Actualizar".
+     * Este metodo se invoca al presionar el botón "Actualizar".
      */
     public void actualizar() {
         panelPartidas.removeAll();
