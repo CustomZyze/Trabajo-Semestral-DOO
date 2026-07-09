@@ -4,6 +4,12 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
+/**
+ * Panel encargado de registrar los resultados de las partidas pendientes
+ * de un torneo.
+ * Utiliza la clase Ventana para acceder al torneo actual y para cambiar
+ * entre paneles de la interfaz gráfica.
+ */
 public class PanelResultados extends JPanel {
     private JComboBox<String> cbPartidas;
     private JTextField txtPuntaje1;
@@ -11,6 +17,12 @@ public class PanelResultados extends JPanel {
     private JLabel lblMensaje;
     private Ventana ventana;
 
+    /**
+     * Constructor del panel de resultados.
+     * Configura el diseño visual del panel, crea los componentes gráficos
+     * y asigna los eventos de los botones.
+     * @param ventana ventana principal de la aplicación.
+     */
     public PanelResultados(Ventana ventana) {
         this.ventana = ventana;
         setLayout(new GridBagLayout());
@@ -82,6 +94,12 @@ public class PanelResultados extends JPanel {
         add(btnVolver, gbc);
     }
 
+    /**
+     * Carga las partidas pendientes del torneo actual en el ComboBox.
+     * Primero limpia las partidas mostradas anteriormente. Luego verifica
+     * que exista un torneo activo en la ventana. Si existe, obtiene sus
+     * partidas pendientes y las agrega al ComboBox con el formato:
+     */
     private void cargarPartidas() {
         cbPartidas.removeAllItems();
         if (ventana.getTorneo() == null) return;
@@ -90,6 +108,14 @@ public class PanelResultados extends JPanel {
         }
     }
 
+    /**
+     * Registra el resultado de la partida seleccionada.
+     * Este méeodo obtiene la partida seleccionada desde el ComboBox, lee los
+     * puntajes ingresados por el usuario y llama al torneo para registrar
+     * el resultado.
+     * Si ocurre un error de formato numérico o una excepción del sistema,
+     * muestra el mensaje correspondiente en rojo.
+     */
     private void registrar() {
         int idx = cbPartidas.getSelectedIndex();
         if (idx < 0) { lblMensaje.setText("Selecciona una partida."); return; }
@@ -117,6 +143,13 @@ public class PanelResultados extends JPanel {
 
     }
 
+    /**
+     * Crea una etiqueta con el estilo visual usado en el panel.
+     * Este metodo evita repetir la configuración de color y fuente cada vez
+     * que se crea un JLabel.
+     * @param texto texto que mostrará la etiqueta.
+     * @return JLabel configurado con el estilo del panel.
+     */
     private JLabel etiqueta(String texto) {
         JLabel lbl = new JLabel(texto);
         lbl.setForeground(Color.WHITE);
