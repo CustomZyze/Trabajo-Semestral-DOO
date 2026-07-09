@@ -2,6 +2,8 @@ package LogicaTorneo;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 public class Partida {
     private Participante p1;
@@ -11,11 +13,12 @@ public class Partida {
     private Participante ganador;
     private EstadoPartida estado;
     private GestorEventosPartida eventos;
-
+    private LocalDateTime fecha;
 
     public Partida(Participante p1,Participante p2){
         this.p1 = p1;
         this.p2 = p2;
+        this.fecha = null;
         estado = EstadoPartida.PENDIENTE;
         this.eventos = new GestorEventosPartida();
     }
@@ -47,6 +50,23 @@ public class Partida {
 
         eventos.notificar(this);
 
+    }
+
+    public LocalDateTime getFecha() {
+        return fecha;
+    }
+
+    public void setFecha(LocalDateTime fecha) {
+        this.fecha = fecha;
+    }
+
+    public String getFechaFormateada() {
+        if (fecha == null) {
+            return "Sin fecha";
+        }
+
+        DateTimeFormatter formato = DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm");
+        return fecha.format(formato);
     }
 
     public int getPuntaje1() {

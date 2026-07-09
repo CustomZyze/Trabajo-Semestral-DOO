@@ -5,12 +5,17 @@
     import java.util.ArrayList;
     import java.util.List;
 
+    import java.time.LocalDate;
+    import java.time.LocalDateTime;
+    import java.time.LocalTime;
+
     public class Torneo implements ObservadorPartida{
         private String nombre;
         private Disciplina disciplina;
         private List<Participante> inscritos;
         private List<Partida> llaves;
         private Formato formato;
+        private LocalDate proximaFechaDisponible;
 
         public Torneo(String nombre, Disciplina disciplina, Formato formato) {
             if (nombre == null || nombre.isBlank()) {
@@ -82,8 +87,36 @@
         public void mostrarLlaves() {
             System.out.println("--- Lista de Partidas ---");
             for (Partida p : llaves) {
-                System.out.println(p.getP1().getNombre() + " vs " + p.getP2().getNombre() + " | Estado: " + p.getEstado());
+                System.out.println(p.getP1().getNombre() + " vs " + p.getP2().getNombre() +
+                        "| Fecha: " + p.getFechaFormateada()+ " | Estado: " + p.getEstado());
             }
+        }
+
+        public void programarFechas(LocalDate fechaInicio){
+
+            LocalTime horaPrimeraPartida = LocalTime.of(17,0);
+            LocalTime horaSegundaPartida = LocalTime.of(20,0);
+
+            LocalDate fechaActual = fechaInicio;
+
+            for(int i = 0 ; i < llaves.size() ; i++){
+                Partida partida = llaves.get(i);
+
+                if(i%2 == 0){
+                    partida.setFecha(LocalDateTime.of(fechaActual, horaPrimeraPartida));
+                } else {
+                    partida.setFecha(LocalDateTime.of(fechaActual, horaSegundaPartida));
+                    fechaActual = fechaActual.plusDays(2);
+                }
+
+            }
+
+            if (llaves.size() % 2 != 0) {
+                fechaActual = fechaActual.plusDays(2);
+            }
+
+            proximaFechaDisponible = fechaActual;
+
         }
 
         public String getNombre() { return nombre; }
@@ -174,6 +207,11 @@
                 for (Partida partida : llaves){
                     partida.agregarObservador(this);
                 }
+
+                if (proximaFechaDisponible != null) {
+                    programarFechas(proximaFechaDisponible);
+                }
+
                 System.out.println("\n--- Siguiente ronda ---");
                 mostrarLlaves();
             }
