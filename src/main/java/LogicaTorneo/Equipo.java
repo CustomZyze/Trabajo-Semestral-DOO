@@ -53,7 +53,8 @@ public class Equipo extends Participante {
         System.out.println("Equipo: " + getNombre() + " | Contacto: " + getContacto());
         System.out.println("Roster de jugadores:");
         for (Jugador j : jugadores) {
-            System.out.println(" - " + j.getNombre());
+            System.out.print("*");
+            j.verDetalles();
         }
     }
 }

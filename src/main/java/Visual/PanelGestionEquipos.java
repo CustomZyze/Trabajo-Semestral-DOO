@@ -179,18 +179,11 @@ public class PanelGestionEquipos extends JPanel {
             lblMensaje.setForeground(Color.RED);
             return;
         }
+        try{
+            String nombre = txtNombreJugador.getText().trim();
+            String rut = txtRutJugador.getText().trim();
+            String contacto = txtContactoJugador.getText().trim();
 
-        String nombre = txtNombreJugador.getText().trim();
-        String rut = txtRutJugador.getText().trim();
-        String contacto = txtContactoJugador.getText().trim();
-
-        if (nombre.isEmpty() || rut.isEmpty()) {
-            lblMensaje.setText("El nombre y RUT son obligatorios.");
-            lblMensaje.setForeground(Color.RED);
-            return;
-        }
-
-        try {
             Jugador nuevoJugador = new Jugador(nombre, contacto, rut);
             equipoDestino.agregarIntegrante(nuevoJugador);
 
@@ -200,10 +193,9 @@ public class PanelGestionEquipos extends JPanel {
             txtNombreJugador.setText("");
             txtRutJugador.setText("");
             txtContactoJugador.setText("");
-
             actualizarRoster();
-        } catch (IllegalArgumentException exception) {
-            lblMensaje.setText(exception.getMessage());
+        }catch (RuntimeException ex){
+            lblMensaje.setText(ex.getMessage());
             lblMensaje.setForeground(Color.RED);
         }
     }

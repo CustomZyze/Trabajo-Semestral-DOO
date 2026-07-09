@@ -13,6 +13,9 @@
         private Formato formato;
 
         public Torneo(String nombre, Disciplina disciplina, Formato formato) {
+            if (nombre == null || nombre.isBlank()) {
+                throw new NoInfoException("El nombre del torneo no puede estar vacío");
+            }
             this.nombre = nombre;
             this.disciplina = disciplina;
             this.formato = formato;
@@ -28,13 +31,13 @@
                 throw new NoInfoException("Falta informacion");
             }
 
-            for(Participante inscritos : inscritos ){
-                if (inscritos.getNombre().equalsIgnoreCase(p.getNombre())){
-                    throw new DuplicadoException(inscritos.getNombre());
+            for(Participante inscrito : inscritos ){
+                if (inscrito.getNombre().equalsIgnoreCase(p.getNombre())){
+                    throw new DuplicadoException(inscrito.getNombre());
                 }
             }
 
-            if (inscritos.size() > maxParticipantes) {
+            if (inscritos.size() >= maxParticipantes) {
                 throw new CantidadInvalidaParticipantesException("El torneo tiene un maximo de " + maxParticipantes + " participantes.");
             }
 

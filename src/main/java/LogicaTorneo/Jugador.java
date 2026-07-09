@@ -24,6 +24,6 @@ public class Jugador extends Participante {
 
     @Override
     public void verDetalles() {
-        System.out.println("Jugador: " + getNombre() + " (RUT: " + rut + ")");
+        System.out.println("Jugador: " + getNombre() + " \nRUT: " + getRut() + "\nContacto: " + getContacto());
     }
 }

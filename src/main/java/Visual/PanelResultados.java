@@ -102,16 +102,15 @@ public class PanelResultados extends JPanel {
 
             ventana.getTorneo().registrarResultadosPartida(partidaActual, p1, p2);
 
-
-
             lblMensaje.setText("Resultado registrado.");
+            lblMensaje.setForeground(new Color(100, 220, 100));
             txtPuntaje1.setText("");
             txtPuntaje2.setText("");
             cargarPartidas();
         } catch (NumberFormatException ex) {
             lblMensaje.setText("Ingresa puntajes válidos.");
             lblMensaje.setForeground(Color.RED);
-        } catch (IllegalArgumentException ex){
+        } catch (RuntimeException ex){
             lblMensaje.setText( ex.getMessage());
             lblMensaje.setForeground(Color.RED);
         }

@@ -58,30 +58,32 @@ public class PanelCrearTorneo extends JPanel {
         btnCrear.setPreferredSize(new Dimension(150, 35));
         btnCrear.setBackground(new Color(70, 130, 180));
         btnCrear.addActionListener(e -> {
-            String nombre = txtNombre.getText().trim();
-            if (nombre.isEmpty()) {
-                lblMensaje.setText("Ingresa un nombre.");
+            try {
+                String nombre = txtNombre.getText().trim();
+
+                Disciplina disc = (Disciplina) cbDisciplina.getSelectedItem();
+                Formato fmt = switch (cbFormato.getSelectedIndex()) {
+                    case 1  -> new ElimDoble();
+                    case 2  -> new LigaSimple();
+                    default -> new ElimDirecta();
+                };
+                Torneo torneo = new Torneo(nombre, disc, fmt);
+                ventana.setTorneo(torneo);
+
+                ventana.agregarPanel(new PanelInscritos(ventana), "INSCRITOS");
+                ventana.agregarPanel(new PanelLlaves(ventana), "LLAVES");
+                ventana.agregarPanel(new PanelResultados(ventana), "RESULTADOS");
+                ventana.agregarPanel(new PanelClasificacion(ventana), "CLASIFICACION");
+                ventana.agregarPanel(new PanelGestionEquipos(ventana), "GESTION_EQUIPOS");
+
+                lblMensaje.setText("Torneo '" + nombre + "' creado.");
+                lblMensaje.setForeground(new Color(100, 220, 100));
+                ventana.mostrarPanel("INSCRITOS");
+
+            } catch (RuntimeException ex) {
+                lblMensaje.setText(ex.getMessage());
                 lblMensaje.setForeground(Color.RED);
-                return;
             }
-            Disciplina disc = (Disciplina) cbDisciplina.getSelectedItem();
-            Formato fmt = switch (cbFormato.getSelectedIndex()) {
-                case 1  -> new ElimDoble();
-                case 2  -> new LigaSimple();
-                default -> new ElimDirecta();
-            };
-            Torneo torneo = new Torneo(nombre, disc, fmt);
-            ventana.setTorneo(torneo);
-
-            ventana.agregarPanel(new PanelInscritos(ventana), "INSCRITOS");
-            ventana.agregarPanel(new PanelLlaves(ventana), "LLAVES");
-            ventana.agregarPanel(new PanelResultados(ventana), "RESULTADOS");
-            ventana.agregarPanel(new PanelClasificacion(ventana), "CLASIFICACION");
-            ventana.agregarPanel(new PanelGestionEquipos(ventana), "GESTION_EQUIPOS");
-
-            lblMensaje.setText("Torneo '" + nombre + "' creado.");
-            lblMensaje.setForeground(new Color(100, 220, 100));
-            ventana.mostrarPanel("INSCRITOS");
         });
         gbc.gridx = 1;
         add(btnCrear, gbc);
