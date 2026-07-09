@@ -4,9 +4,13 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
+
 public class PanelClasificacion extends JPanel {
+
     private JPanel panelTabla;
+
     private Ventana ventana;
+
 
     public PanelClasificacion(Ventana ventana) {
         this.ventana = ventana;
