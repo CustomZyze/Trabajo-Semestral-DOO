@@ -16,6 +16,7 @@
         private List<Partida> llaves;
         private Formato formato;
         private LocalDate proximaFechaDisponible;
+        private LocalDate fechaInicio;
 
         public Torneo(String nombre, Disciplina disciplina, Formato formato) {
             if (nombre == null || nombre.isBlank()) {
@@ -128,6 +129,13 @@
         public List<Participante> getInscritos() { return inscritos; }
         public List<Partida> getLlaves() { return llaves; }
 
+        public LocalDate getFechaInicio() {
+            return fechaInicio;
+        }
+        public void setFechaInicio(LocalDate fechaInicio) {
+            this.fechaInicio = fechaInicio;
+        }
+
         public List<Partida> getPartidasPendientes(){
             List<Partida> partidasPendientes = new ArrayList<>();
             for(Partida partida : llaves){
@@ -225,4 +233,5 @@
                 }
             }
         }
+
     }

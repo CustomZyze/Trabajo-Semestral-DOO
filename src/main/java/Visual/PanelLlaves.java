@@ -72,10 +72,11 @@ public class PanelLlaves extends JPanel {
                 default        -> "•";
             };
 
-            String texto = String.format("  %s  %s  vs  %s  |  %d - %d  |  %s",
+            String texto = String.format("  %s  %s  vs  %s  |  Fecha: %s  |  %d - %d  |  %s",
                     estado,
                     p.getP1().getNombre(),
                     p.getP2().getNombre(),
+                    p.getFechaFormateada(),
                     p.getPuntaje1(),
                     p.getPuntaje2(),
                     p.getEstado()

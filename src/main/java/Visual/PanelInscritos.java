@@ -2,6 +2,7 @@ package Visual;
 import LogicaTorneo.*;
 import javax.swing.*;
 import java.awt.*;
+import java.time.LocalDate;
 
 public class PanelInscritos extends JPanel {
     private JTextField txtNombre;
@@ -113,10 +114,15 @@ public class PanelInscritos extends JPanel {
         btnGenerar.setPreferredSize(new Dimension(170, 35));
         btnGenerar.setBackground(new Color(60, 160, 80));
         btnGenerar.addActionListener(e -> {
-            try{
+            try {
                 ventana.getTorneo().generarLlaves();
+
+                LocalDate fechaInicio = ventana.getTorneo().getFechaInicio();
+                ventana.getTorneo().programarFechas(fechaInicio);
+
                 ventana.mostrarPanel("LLAVES");
-            } catch (RuntimeException ex){
+
+            } catch (RuntimeException ex) {
                 lblMensaje.setText(ex.getMessage());
                 lblMensaje.setForeground(Color.RED);
             }

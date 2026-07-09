@@ -2,12 +2,17 @@ package Visual;
 import LogicaTorneo.*;
 import javax.swing.*;
 import java.awt.*;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Calendar;
+import java.util.Date;
 
 public class PanelCrearTorneo extends JPanel {
     private JTextField txtNombre;
     private JComboBox<Disciplina> cbDisciplina;
     private JComboBox<String> cbFormato;
     private JLabel lblMensaje;
+    private JSpinner spFechaInicio;
 
     public PanelCrearTorneo(Ventana ventana) {
         setLayout(new GridBagLayout());
@@ -42,9 +47,26 @@ public class PanelCrearTorneo extends JPanel {
         gbc.gridx = 1;
         add(cbFormato, gbc);
 
+        gbc.gridx = 0;
+        gbc.gridy = 4;
+        add(etiqueta("Fecha inicio:"), gbc);
+
+        SpinnerDateModel modeloFecha = new SpinnerDateModel(
+                new Date(),
+                null,
+                null,
+                Calendar.DAY_OF_MONTH
+        );
+
+        spFechaInicio = new JSpinner(modeloFecha);
+        spFechaInicio.setEditor(new JSpinner.DateEditor(spFechaInicio, "dd/MM/yyyy"));
+
+        gbc.gridx = 1;
+        add(spFechaInicio, gbc);
+
         lblMensaje = new JLabel("");
         lblMensaje.setForeground(new Color(100, 220, 100));
-        gbc.gridx = 0; gbc.gridy = 4; gbc.gridwidth = 2;
+        gbc.gridx = 0; gbc.gridy = 6; gbc.gridwidth = 2;
         add(lblMensaje, gbc);
 
         RoundedButton btnVolver = new RoundedButton("Volver", 20);
@@ -67,7 +89,16 @@ public class PanelCrearTorneo extends JPanel {
                     case 2  -> new LigaSimple();
                     default -> new ElimDirecta();
                 };
+                Date fechaSeleccionada = (Date) spFechaInicio.getValue();
+
+                LocalDate fechaInicio = fechaSeleccionada
+                        .toInstant()
+                        .atZone(ZoneId.systemDefault())
+                        .toLocalDate();
+
                 Torneo torneo = new Torneo(nombre, disc, fmt);
+                torneo.setFechaInicio(fechaInicio);
+
                 ventana.setTorneo(torneo);
 
                 ventana.agregarPanel(new PanelInscritos(ventana), "INSCRITOS");
