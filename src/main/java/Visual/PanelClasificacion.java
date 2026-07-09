@@ -4,14 +4,40 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.List;
 
-
+/**
+ * Panel que muestra la tabla de clasificación de un torneo.
+ *
+ * Si el formato del torneo activo maneja clasificación (por ejemplo, LigaSimple),
+ * se despliega una tabla con las posiciones, partidos jugados, ganados, empatados,
+ * perdidos y puntos de cada participante, ordenada de mayor a menor puntaje.
+ * Las primeras tres posiciones se destacan con colores especiales (oro, plata, bronce).
+ *
+ * Si el formato no maneja clasificación (por ejemplo, eliminatoria simple o doble),
+ * se muestra un mensaje informativo en su lugar.
+ *
+ * Este panel se comunica con la ventana principal para volver a la vista de llaves
+ * o al menú.
+ *
+ * @author
+ * @see Ventana
+ * @see Formato
+ * @see RegistroLiga
+ */
 public class PanelClasificacion extends JPanel {
 
+    /** Panel contenedor donde se renderizan el encabezado y las filas de la tabla, o el mensaje informativo. */
     private JPanel panelTabla;
 
+    /** Referencia a la ventana principal, usada para consultar el torneo activo y navegar entre paneles. */
     private Ventana ventana;
 
-
+    /**
+     * Construye el panel de clasificación, inicializando el título, el área de la
+     * tabla (dentro de un scroll) y los botones de navegación (Actualizar, Ver Llaves, Menú).
+     *
+     * @param ventana referencia a la ventana principal de la aplicación,
+     *                usada para acceder al torneo activo y cambiar de panel
+     */
     public PanelClasificacion(Ventana ventana) {
         this.ventana = ventana;
         setLayout(new BorderLayout(10, 10));
@@ -51,6 +77,16 @@ public class PanelClasificacion extends JPanel {
         add(botones, BorderLayout.SOUTH);
     }
 
+    /**
+     * Refresca el contenido de la tabla de clasificación.
+     *
+     * Limpia el panel de la tabla y vuelve a construirlo según el estado actual del torneo:
+     * si no hay torneo activo, muestra un mensaje indicándolo; si el formato del torneo
+     * tiene clasificación, muestra la tabla de posiciones; si el formato no tiene
+     * clasificación, muestra un mensaje informativo.
+     *
+     * Este método se invoca al presionar el botón "Actualizar".
+     */
     public void actualizar() {
         panelTabla.removeAll();
 
@@ -71,6 +107,16 @@ public class PanelClasificacion extends JPanel {
         panelTabla.repaint();
     }
 
+    /**
+     * Construye y agrega al panel la tabla de posiciones de una liga,
+     * ordenando los registros de mayor a menor puntaje.
+     *
+     * Si la lista de registros está vacía, se muestra un mensaje informativo
+     * en lugar de la tabla.
+     *
+     * @param registros lista de registros de liga a mostrar; se ordena
+     *                   internamente por puntaje descendente
+     */
     private void mostrarTablaLiga(List<RegistroLiga> registros) {
         if (registros.isEmpty()) {
             mostrarMensaje("No hay registros aún.");
@@ -85,10 +131,21 @@ public class PanelClasificacion extends JPanel {
         }
     }
 
+    /**
+     * Muestra un mensaje informativo indicando que el formato actual del torneo
+     * no soporta tabla de clasificación (por ejemplo, en formatos de eliminatoria).
+     */
     private void mostrarCampeonEliminatoria() {
         mostrarMensaje("La clasificación no está disponible para este formato.");
     }
 
+    /**
+     * Crea la fila de encabezado de la tabla, con las columnas: posición (#),
+     * Participante, Partidos Jugados (PJ), Ganados (G), Empatados (E),
+     * Perdidos (P) y Puntos (Pts).
+     *
+     * @return un JPanel configurado como fila de encabezado
+     */
     private JPanel crearEncabezado() {
         JPanel header = new JPanel(new GridLayout(1, 7));
         header.setBackground(new Color(60, 60, 90));
@@ -103,6 +160,17 @@ public class PanelClasificacion extends JPanel {
         return header;
     }
 
+    /**
+     * Crea una fila de la tabla correspondiente a un registro de liga,
+     * aplicando colores especiales de fondo y texto según la posición:
+     * oro para el primer lugar, plata para el segundo, bronce para el tercero,
+     * y colores alternados para el resto.
+     *
+     * @param indice   posición del registro en la tabla ordenada (0 = primer lugar)
+     * @param registro registro de liga con las estadísticas del participante
+     * @return un JPanel configurado como fila de la tabla, con los valores de
+     *         posición, nombre, partidos jugados, ganados, empatados, perdidos y puntos
+     */
     private JPanel crearFila(int indice, RegistroLiga registro) {
         JPanel fila = new JPanel(new GridLayout(1, 7));
         fila.setMaximumSize(new Dimension(Integer.MAX_VALUE, 45));
@@ -143,6 +211,13 @@ public class PanelClasificacion extends JPanel {
         return fila;
     }
 
+    /**
+     * Agrega un mensaje de texto centrado al panel de la tabla, usado para
+     * comunicar estados sin datos (sin torneo activo, sin registros, o
+     * formato sin clasificación).
+     *
+     * @param texto mensaje a mostrar en el panel
+     */
     private void mostrarMensaje(String texto) {
         JLabel lbl = new JLabel(texto, SwingConstants.CENTER);
         lbl.setForeground(Color.GRAY);

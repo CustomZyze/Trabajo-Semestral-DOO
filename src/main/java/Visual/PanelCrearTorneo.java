@@ -7,13 +7,50 @@ import java.time.ZoneId;
 import java.util.Calendar;
 import java.util.Date;
 
+/**
+ * Panel que permite crear un nuevo torneo.
+ *
+ * Solicita al usuario el nombre del torneo, la disciplina, el formato
+ * (Eliminatoria Simple, Eliminatoria Doble o Liga Simple) y la fecha de
+ * inicio. Al confirmar la creación, se instancia un nuevo Torneo con el
+ * Formato correspondiente, se asocia a la ventana principal, y se registran
+ * los demás paneles del sistema (Inscritos, Llaves, Resultados, Clasificación
+ * y Gestión de Equipos) para que queden disponibles durante el torneo.
+ *
+ * Si ocurre un error durante la creación (por ejemplo, datos inválidos),
+ * se captura la excepción y se muestra el mensaje correspondiente en pantalla.
+ *
+ */
 public class PanelCrearTorneo extends JPanel {
+
+    /** Campo de texto donde se ingresa el nombre del torneo. */
     private JTextField txtNombre;
+
+    /** Combo con las disciplinas disponibles, definidas en el enum Disciplina. */
     private JComboBox<Disciplina> cbDisciplina;
+
+    /** Combo con los formatos de torneo disponibles (Eliminatoria Simple, Eliminatoria Doble, Liga Simple). */
     private JComboBox<String> cbFormato;
+
+    /** Etiqueta usada para mostrar mensajes de éxito o error al usuario. */
     private JLabel lblMensaje;
+
+    /** Selector de fecha usado para definir la fecha de inicio del torneo. */
     private JSpinner spFechaInicio;
 
+    /**
+     * Construye el panel de creación de torneo, inicializando el formulario
+     * (nombre, disciplina, formato, fecha de inicio) y los botones de
+     * navegación (Volver, Crear).
+     *
+     * Al presionar "Crear", se valida y construye el objeto Torneo, se
+     * registra en la ventana principal, se agregan todos los paneles
+     * dependientes del torneo, y se navega automáticamente al panel de
+     * Inscritos.
+     *
+     * @param ventana referencia a la ventana principal de la aplicación,
+     *                usada para registrar el torneo creado y navegar entre paneles
+     */
     public PanelCrearTorneo(Ventana ventana) {
         setLayout(new GridBagLayout());
         setBackground(new Color(40, 40, 55));
@@ -120,6 +157,13 @@ public class PanelCrearTorneo extends JPanel {
         add(btnCrear, gbc);
     }
 
+    /**
+     * Crea una etiqueta de texto con el estilo visual estándar usado
+     * en los formularios del panel.
+     *
+     * @param texto contenido de la etiqueta
+     * @return un JLabel configurado con el estilo del formulario
+     */
     private JLabel etiqueta(String texto) {
         JLabel lbl = new JLabel(texto);
         lbl.setForeground(Color.WHITE);
